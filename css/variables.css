@@ -1,0 +1,65 @@
+/* RiverFlow CSS Variables */
+:root {
+  /* Color Palette */
+  --deep-river: #0A1628;
+  --card-bg: #0D1E35;
+  --border: #142235;
+  --flow-blue: #1E88E5;
+  --current: #4FC3F7;
+  --white-foam: #F8FAFC;
+  --slate: #94A3B8;
+  --dim: #4A5568;
+  --footer-bg: #060E1A;
+  --contact-bg: #F0F4F8;
+  --contact-text: #1A202C;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Layout */
+  --nav-height: 64px;
+  --container-max-width: 1200px;
+  --container-padding: 24px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.2);
+
+  /* Z-Index */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal: 1000;
+}
+
+/* Media Query Breakpoints */
+@media (max-width: 1024px) {
+  :root {
+    --container-padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --container-padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --container-padding: 12px;
+  }
+}

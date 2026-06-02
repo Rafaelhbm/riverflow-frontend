@@ -1,0 +1,106 @@
+/* RiverFlow Footer */
+
+.footer {
+  background: var(--footer-bg);
+  border-top: 1px solid var(--border);
+  padding: 60px 0 24px;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 1024px) {
+  .footer__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 80px;
+  }
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__logo {
+  margin-bottom: 4px;
+  line-height: 0;
+}
+
+.footer__tagline {
+  font-size: 13px;
+  color: var(--dim);
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.footer__social {
+  display: flex;
+  gap: 8px;
+}
+
+.social-btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dim);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.social-btn:hover {
+  border-color: var(--flow-blue);
+  color: var(--flow-blue);
+}
+
+.footer__section {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__nav-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white-foam);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.footer__link {
+  display: block;
+  font-size: 14px;
+  color: var(--dim);
+  margin-bottom: 10px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer__link:hover {
+  color: var(--white-foam);
+}
+
+.footer__bar {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footer__copyright {
+  font-size: 12px;
+  color: var(--dim);
+}
+
+.footer__copyright span {
+  color: var(--flow-blue);
+}

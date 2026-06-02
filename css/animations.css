@@ -1,0 +1,89 @@
+/* RiverFlow Animations & Scroll Reveal */
+
+/* --- Scroll Reveal --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* --- Keyframes --- */
+
+/* Float: hero code block */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Pulse: badge dot */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
+}
+
+/* Fade In */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Page entrance */
+main {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* --- Focus Visible (accessibility) --- */
+:focus-visible {
+  outline: 2px solid var(--flow-blue);
+  outline-offset: 2px;
+}
+
+button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.25);
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+}
+
+/* --- Reduced Motion (accessibility) --- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

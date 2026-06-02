@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <style>
+      text { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
+      .mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#0A1628"/>
+
+  <!-- Subtle grid dots -->
+  <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+    <circle cx="12" cy="12" r="1" fill="#1E88E5" opacity="0.06"/>
+  </pattern>
+  <rect width="800" height="400" fill="url(#dots)"/>
+
+  <!-- Left sidebar -->
+  <rect x="0" y="0" width="180" height="400" fill="#0D1E35"/>
+  <rect x="180" y="0" width="1" height="400" fill="#142235"/>
+
+  <!-- Logo -->
+  <text x="20" y="38" fill="#1E88E5" font-size="13" font-weight="500" letter-spacing="2" class="mono">FLOWBARBER</text>
+  <rect x="20" y="46" width="140" height="1" fill="#1E88E5" opacity="0.3"/>
+
+  <!-- Nav items -->
+  <rect x="0" y="60" width="180" height="32" fill="#1E88E5" opacity="0.12"/>
+  <rect x="16" y="70" width="3" height="12" fill="#1E88E5" rx="1"/>
+  <text x="28" y="81" fill="#F8FAFC" font-size="11" font-weight="500">Agenda Hoje</text>
+  <text x="28" y="114" fill="#94A3B8" font-size="11">Clientes</text>
+  <text x="28" y="146" fill="#94A3B8" font-size="11">Campanhas</text>
+  <text x="28" y="178" fill="#94A3B8" font-size="11">Estoque</text>
+  <text x="28" y="210" fill="#94A3B8" font-size="11">Faturamento</text>
+  <text x="28" y="242" fill="#94A3B8" font-size="11">WhatsApp Bot</text>
+
+  <rect x="20" y="260" width="140" height="1" fill="#142235"/>
+
+  <!-- Hoje resumo -->
+  <text x="20" y="286" fill="#94A3B8" font-size="9" letter-spacing="1">HOJE</text>
+  <text x="20" y="305" fill="#F8FAFC" font-size="18" font-weight="300">R$ 640</text>
+  <text x="20" y="320" fill="#22C55E" font-size="9">8 atendimentos</text>
+
+  <!-- Main content: Agenda -->
+  <rect x="180" y="0" width="620" height="52" fill="#0D1E35"/>
+  <rect x="180" y="52" width="620" height="1" fill="#142235"/>
+  <text x="204" y="30" fill="#F8FAFC" font-size="14" font-weight="500">Agenda — Quinta, 16 Abril</text>
+  <text x="204" y="44" fill="#94A3B8" font-size="10">12 agendamentos · 3 slots livres · Bot ativo</text>
+
+  <!-- WhatsApp bot status -->
+  <rect x="600" y="10" width="90" height="30" fill="#22C55E" opacity="0.12" rx="4"/>
+  <circle cx="612" cy="25" r="4" fill="#22C55E"/>
+  <text x="620" y="22" fill="#22C55E" font-size="9" font-weight="500">BOT ATIVO</text>
+  <text x="620" y="34" fill="#94A3B8" font-size="9">24h respondendo</text>
+
+  <!-- Time column header -->
+  <text x="204" y="74" fill="#94A3B8" font-size="9" letter-spacing="1">HORA</text>
+  <text x="264" y="74" fill="#94A3B8" font-size="9" letter-spacing="1">CLIENTE</text>
+  <text x="440" y="74" fill="#94A3B8" font-size="9" letter-spacing="1">SERVIÇO</text>
+  <text x="570" y="74" fill="#94A3B8" font-size="9" letter-spacing="1">BARBEIRO</text>
+  <text x="690" y="74" fill="#94A3B8" font-size="9" letter-spacing="1">VALOR</text>
+  <rect x="200" y="77" width="580" height="1" fill="#142235"/>
+
+  <!-- Appointment rows -->
+  <!-- 09:00 - done -->
+  <rect x="200" y="82" width="580" height="38" fill="#0D1E35" rx="3"/>
+  <rect x="200" y="119" width="580" height="1" fill="#142235"/>
+  <rect x="200" y="82" width="3" height="38" fill="#94A3B8" opacity="0.4" rx="1"/>
+  <text x="210" y="99" fill="#94A3B8" font-size="11">09:00</text>
+  <text x="210" y="113" fill="#94A3B8" font-size="9">Concluído</text>
+  <text x="270" y="99" fill="#94A3B8" font-size="11">Carlos Mendes</text>
+  <text x="270" y="113" fill="#94A3B8" font-size="9">Fidelidade: 3 anos</text>
+  <text x="446" y="99" fill="#94A3B8" font-size="11">Corte + Barba</text>
+  <text x="576" y="99" fill="#94A3B8" font-size="11">João</text>
+  <text x="696" y="99" fill="#94A3B8" font-size="11">R$ 75</text>
+
+  <!-- 10:30 - em andamento -->
+  <rect x="200" y="124" width="580" height="38" fill="#1E88E5" opacity="0.07" rx="3"/>
+  <rect x="200" y="161" width="580" height="1" fill="#1E88E5" opacity="0.2"/>
+  <rect x="200" y="124" width="3" height="38" fill="#1E88E5" rx="1"/>
+  <text x="210" y="141" fill="#4FC3F7" font-size="11" font-weight="500">10:30</text>
+  <text x="210" y="155" fill="#1E88E5" font-size="9">Em atendimento</text>
+  <text x="270" y="141" fill="#F8FAFC" font-size="11" font-weight="500">Rafael Torres</text>
+  <text x="270" y="155" fill="#94A3B8" font-size="9">1ª visita · via Instagram</text>
+  <text x="446" y="141" fill="#F8FAFC" font-size="11">Corte Degradê</text>
+  <text x="576" y="141" fill="#F8FAFC" font-size="11">Pedro</text>
+  <text x="696" y="141" fill="#4FC3F7" font-size="11">R$ 55</text>
+
+  <!-- 12:00 - agendado -->
+  <rect x="200" y="166" width="580" height="38" fill="#0A1628" rx="3"/>
+  <rect x="200" y="203" width="580" height="1" fill="#142235"/>
+  <rect x="200" y="166" width="3" height="38" fill="#22C55E" rx="1"/>
+  <text x="210" y="183" fill="#F8FAFC" font-size="11">12:00</text>
+  <text x="210" y="197" fill="#22C55E" font-size="9">Confirmado · Bot</text>
+  <text x="270" y="183" fill="#F8FAFC" font-size="11">Lucas Araujo</text>
+  <text x="270" y="197" fill="#94A3B8" font-size="9">Lembrete enviado 1h atrás</text>
+  <text x="446" y="183" fill="#F8FAFC" font-size="11">Barba + Hidratação</text>
+  <text x="576" y="183" fill="#F8FAFC" font-size="11">Marcos</text>
+  <text x="696" y="183" fill="#F8FAFC" font-size="11">R$ 90</text>
+
+  <!-- 13:30 - agendado -->
+  <rect x="200" y="208" width="580" height="38" fill="#0D1E35" rx="3"/>
+  <rect x="200" y="245" width="580" height="1" fill="#142235"/>
+  <rect x="200" y="208" width="3" height="38" fill="#22C55E" rx="1"/>
+  <text x="210" y="225" fill="#F8FAFC" font-size="11">13:30</text>
+  <text x="210" y="239" fill="#22C55E" font-size="9">Confirmado · Bot</text>
+  <text x="270" y="225" fill="#F8FAFC" font-size="11">André Silva</text>
+  <text x="270" y="239" fill="#94A3B8" font-size="9">Lembrete enviado 2h atrás</text>
+  <text x="446" y="225" fill="#F8FAFC" font-size="11">Corte Social</text>
+  <text x="576" y="225" fill="#F8FAFC" font-size="11">João</text>
+  <text x="696" y="225" fill="#F8FAFC" font-size="11">R$ 45</text>
+
+  <!-- 15:00 - slot livre -->
+  <rect x="200" y="250" width="580" height="38" fill="#0A1628" rx="3"/>
+  <rect x="200" y="250" width="3" height="38" fill="#142235" rx="1"/>
+  <text x="210" y="267" fill="#94A3B8" font-size="11">15:00</text>
+  <text x="270" y="262" fill="#94A3B8" font-size="9" font-style="italic">Slot disponível</text>
+  <rect x="446" y="257" width="80" height="18" fill="#1E88E5" opacity="0.1" rx="3"/>
+  <text x="458" y="270" fill="#1E88E5" font-size="9">+ Agendar</text>
+
+  <!-- Bottom stats -->
+  <rect x="0" y="360" width="800" height="40" fill="#0D1E35"/>
+  <rect x="0" y="360" width="800" height="1" fill="#142235"/>
+
+  <text x="204" y="375" fill="#94A3B8" font-size="9" letter-spacing="1">SEMANA</text>
+  <text x="204" y="391" fill="#F8FAFC" font-size="11">R$ 3.840</text>
+
+  <rect x="300" y="366" width="1" height="22" fill="#142235"/>
+
+  <text x="314" y="375" fill="#94A3B8" font-size="9" letter-spacing="1">CONFIRMAÇÕES BOT</text>
+  <text x="314" y="391" fill="#22C55E" font-size="11">94% automático</text>
+
+  <rect x="460" y="366" width="1" height="22" fill="#142235"/>
+
+  <text x="474" y="375" fill="#94A3B8" font-size="9" letter-spacing="1">ESTOQUE</text>
+  <text x="474" y="391" fill="#F59E0B" font-size="11">1 alerta de reposição</text>
+
+  <rect x="620" y="366" width="1" height="22" fill="#142235"/>
+  <text x="634" y="384" fill="#1E88E5" font-size="9" class="mono">riverflowdev.com</text>
+</svg>

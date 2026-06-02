@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RiverFlow desenvolve software sob medida para empresas B2B e oferece SaaS próprios (FlowCivil, FlowBarber, FlowStock) prontos para assinar. Clean Architecture, entregas em sprints, suporte real. Aracaju, atendimento nacional.">
+    <meta name="author" content="RiverFlow">
+    <meta name="robots" content="index, follow">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="RiverFlow — Software que flui.">
+    <meta property="og:description" content="Software sob medida para B2B e SaaS próprios prontos para assinar: FlowCivil, FlowBarber e FlowStock. Engenharia séria, entregas em sprints curtos, suporte real.">
+    <meta property="og:image" content="https://riverflowdev.com/assets/og-image.png">
+    <meta property="og:url" content="https://riverflowdev.com">
+    <meta property="og:type" content="website">
+
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- CSS Loading Order -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/values.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/saas.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <title>RiverFlow — Software que flui.</title>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="navbar__logo" aria-label="RiverFlow">
+                <svg width="188" height="38" viewBox="0 0 248 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!-- Gradiente "Flow": azul escuro → ciano (igual ao PDF) -->
+                        <linearGradient id="nb-fg" x1="138" y1="0" x2="195" y2="0" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#1565C0"/>
+                            <stop offset="100%" stop-color="#64B5F6"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Left { -->
+                    <path d="M24 3 C17 3 13 7 13 13 L13 19 C13 23 9 24.5 6 25.5 C9 26.5 13 28 13 32 L13 39 C13 44.5 17 47 24 47" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Right } -->
+                    <path d="M52 3 C59 3 63 7 63 13 L63 19 C63 23 67 24.5 70 25.5 C67 26.5 63 28 63 32 L63 39 C63 44.5 59 47 52 47" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Onda principal -->
+                    <path d="M19 25.5 C23 13.5 33 13.5 38 25.5 C43 37.5 53 37.5 57 25.5" stroke="#4FC3F7" stroke-width="2.8" stroke-linecap="round"/>
+                    <!-- Eco da onda (sombra abaixo, mais escura) -->
+                    <path d="M19 28 C23 16 33 16 38 28 C43 40 53 40 57 28" stroke="#1565C0" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/>
+                    <!-- Texto: River branco + Flow com gradiente azul -->
+                    <text x="83" y="33" font-family="Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" font-weight="700" font-size="23">
+                        <tspan fill="#FFFFFF">River</tspan><tspan fill="url(#nb-fg)">Flow</tspan>
+                    </text>
+                </svg>
+            </a>
+
+            <div class="navbar__links">
+                <a href="#sobre" class="navbar__link">Sobre</a>
+                <a href="#valores" class="navbar__link">Valores</a>
+                <a href="#portfolio" class="navbar__link">Projetos B2B</a>
+                <a href="#saas" class="navbar__link">Nossos SaaS</a>
+                <a href="#contato" class="navbar__cta">Fale conosco</a>
+            </div>
+
+            <button class="hamburger" data-hamburger aria-label="Abrir menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <div class="nav-drawer">
+            <a href="#sobre" class="nav-drawer__link">Sobre</a>
+            <a href="#valores" class="nav-drawer__link">Valores</a>
+            <a href="#portfolio" class="nav-drawer__link">Projetos B2B</a>
+            <a href="#saas" class="nav-drawer__link">Nossos SaaS</a>
+            <a href="#contato" class="nav-drawer__cta">Fale conosco</a>
+        </div>
+        <div class="nav-overlay"></div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <canvas id="hero-canvas" aria-hidden="true"></canvas>
+            <div class="container hero__content">
+                <div class="hero__text">
+                    <div class="hero__badge">
+                        <span class="hero__badge-dot"></span>
+                        <span>Software B2B sob medida &middot; SaaS pr&oacute;prios</span>
+                    </div>
+
+                    <h1 class="hero__title">Software que flui.</h1>
+
+                    <p class="hero__subtitle">Desenvolvemos sistemas sob medida para empresas B2B e criamos produtos SaaS prontos para assinar. Da ideia ao deploy, sem enrola&ccedil;&atilde;o.</p>
+
+                    <div class="hero__actions">
+                        <a href="#portfolio" class="btn-primary">Ver projetos B2B</a>
+                        <a href="#saas" class="btn-secondary">Nossos SaaS &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="hero__code">
+                    <pre><code><span style="color:#4FC3F7">class</span> <span style="color:#F8FAFC">DeliverProject</span> {
+  <span style="color:#4FC3F7">async</span> <span style="color:#1E88E5">execute</span>(requirements) {
+    <span style="color:#4FC3F7">const</span> architecture = <span style="color:#4FC3F7">await</span> <span style="color:#1E88E5">this</span>.design(requirements);
+    <span style="color:#4FC3F7">const</span> sprints = <span style="color:#1E88E5">this</span>.planSprints(architecture);
+
+    <span style="color:#4FC3F7">for</span> (<span style="color:#4FC3F7">const</span> sprint <span style="color:#4FC3F7">of</span> sprints) {
+      <span style="color:#4FC3F7">await</span> <span style="color:#1E88E5">this</span>.build(sprint);
+      <span style="color:#4FC3F7">await</span> <span style="color:#1E88E5">this</span>.deliver(sprint);
+    }
+
+    <span style="color:#4FC3F7">return</span> { status: <span style="color:#4FC3F7">'flowing'</span> };
+  }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section about" id="sobre">
+            <div class="container">
+                <div class="section-label reveal">// sobre a empresa</div>
+                <h2 class="section-title reveal">Do rio ao c&oacute;digo</h2>
+
+                <div class="grid-2">
+                    <div class="about__text">
+                        <p class="reveal">Come&ccedil;ou em Paulo Afonso, Bahia. Uma cidade cercada pelo rio S&atilde;o Francisco, onde a &aacute;gua n&atilde;o apenas passa &mdash; ela molda, adapta, segue. Rafael cresceu nesse ambiente e aprendeu uma li&ccedil;&atilde;o simples: fluxo &eacute; tudo. A &aacute;gua n&atilde;o for&ccedil;a seu caminho atrav&eacute;s das pedras. Ela encontra o caminho. Esse &eacute; o princ&iacute;pio da <strong>RiverFlow</strong>.</p>
+
+                        <p class="reveal reveal-delay-1">Hoje, a empresa est&aacute; baseada em Aracaju, Sergipe, e atende neg&oacute;cios em todo o Brasil. Desenvolvemos software que se <strong>adapta ao fluxo do seu neg&oacute;cio</strong>, n&atilde;o o contr&aacute;rio. Cada empresa tem um desafio &uacute;nico. Entender isso faz a diferen&ccedil;a entre um produto gen&eacute;rico e uma solu&ccedil;&atilde;o que realmente funciona.</p>
+
+                        <p class="reveal reveal-delay-2">Trabalhamos em <strong>sprints curtos de 1 a 2 semanas</strong>. Arquitetura limpa com <strong>Domain-Driven Design</strong>. Stack escolhida pelo problema, nunca pela prefer&ecirc;ncia pessoal. E depois da entrega? Continuamos aqui. Suporte real, n&atilde;o apenas um ticket em espera.</p>
+                    </div>
+
+                    <div class="about__stats">
+                        <div class="stat-card reveal">
+                            <div class="stat-card__value">1-2 sem</div>
+                            <div class="stat-card__label">Entregas incrementais</div>
+                        </div>
+                        <div class="stat-card reveal reveal-delay-1">
+                            <div class="stat-card__value">Clean Arch</div>
+                            <div class="stat-card__label">Refer&ecirc;ncia de qualidade</div>
+                        </div>
+                        <div class="stat-card reveal reveal-delay-2">
+                            <div class="stat-card__value">Stack flex&iacute;vel</div>
+                            <div class="stat-card__label">Tecnologia pelo problema</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="section values" id="valores">
+            <div class="container">
+                <div class="section-label reveal">// pilares da marca</div>
+                <h2 class="section-title reveal">O que move a RiverFlow</h2>
+
+                <div class="values__grid">
+                    <div class="value-card reveal">
+                        <svg class="value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                            <path d="M2 12h20"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                        <h3 class="value-card__name">Fluidez</h3>
+                        <p class="value-card__desc">Software que se adapta ao seu neg&oacute;cio, n&atilde;o o inverso. Metodologia &aacute;gil e iterativa em sprints curtos para que voc&ecirc; veja resultados r&aacute;pido.</p>
+                    </div>
+
+                    <div class="value-card reveal reveal-delay-1">
+                        <svg class="value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                        <h3 class="value-card__name">Const&acirc;ncia</h3>
+                        <p class="value-card__desc">N&atilde;o desaparecemos ap&oacute;s a entrega. Suporte ativo, manuten&ccedil;&atilde;o cont&iacute;nua e evolu&ccedil;&atilde;o do software conforme seu neg&oacute;cio cresce e muda.</p>
+                    </div>
+
+                    <div class="value-card reveal reveal-delay-2">
+                        <svg class="value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6"/>
+                            <polyline points="8 6 2 12 8 18"/>
+                            <line x1="12" y1="2" x2="12" y2="22"/>
+                        </svg>
+                        <h3 class="value-card__name">Profundidade</h3>
+                        <p class="value-card__desc">Engenharia s&eacute;ria por baixo. Clean Architecture, testes automatizados, CI/CD, c&oacute;digo que escala. T&eacute;cnica s&oacute;lida que sustenta crescimento.</p>
+                    </div>
+
+                    <div class="value-card reveal reveal-delay-3">
+                        <svg class="value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <h3 class="value-card__name">Origem</h3>
+                        <p class="value-card__desc">Nascemos no Nordeste, em Paulo Afonso &mdash; e carregamos isso com orgulho. Nossa origem moldou nossa forma de construir: com determinação, propósito e pertencimento. Não somos apenas uma marca. Somos uma história.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section class="section portfolio" id="portfolio">
+            <div class="container">
+                <div class="section-label reveal">// trabalhos</div>
+
+                <div class="portfolio__header">
+                    <h2 class="section-title">Projetos que fluem</h2>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" data-carousel-prev aria-label="Anterior">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <button class="carousel-btn" data-carousel-next aria-label="Pr&oacute;ximo">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" data-carousel-track>
+                        <!-- Card 1: Pitbull dos Cortes -->
+                        <div class="project-card" data-carousel-item>
+                            <div class="project-card__thumb">
+                                <span class="project-card__badge badge--live">Live</span>
+                            </div>
+                            <div class="project-card__body">
+                                <h3 class="project-card__title">Pitbull dos Cortes</h3>
+                                <p class="project-card__desc">Sistema de gest&atilde;o para barbearia com agendamento, controle financeiro e fideliza&ccedil;&atilde;o de clientes.</p>
+                                <div class="project-card__tags">
+                                    <span class="project-card__tag">Next.js</span>
+                                    <span class="project-card__tag">Supabase</span>
+                                    <span class="project-card__tag">PWA</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Produtiva -->
+                        <div class="project-card" data-carousel-item>
+                            <div class="project-card__thumb">
+                                <span class="project-card__badge badge--dev">Em desenvolvimento</span>
+                            </div>
+                            <div class="project-card__body">
+                                <h3 class="project-card__title">Produtiva</h3>
+                                <p class="project-card__desc">Plataforma de produtividade interna com gest&atilde;o de tarefas, m&eacute;tricas de equipe e dashboards em tempo real.</p>
+                                <div class="project-card__tags">
+                                    <span class="project-card__tag">React</span>
+                                    <span class="project-card__tag">Node.js</span>
+                                    <span class="project-card__tag">PostgreSQL</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: RiverFlow SaaS -->
+                        <div class="project-card" data-carousel-item>
+                            <div class="project-card__thumb">
+                                <span class="project-card__badge badge--soon">Em breve</span>
+                            </div>
+                            <div class="project-card__body">
+                                <h3 class="project-card__title">RiverFlow SaaS</h3>
+                                <p class="project-card__desc">Produto pr&oacute;prio em fase de concep&ccedil;&atilde;o. Detalhes em breve.</p>
+                                <div class="project-card__tags">
+                                    <span class="project-card__tag">TypeScript</span>
+                                    <span class="project-card__tag">Clean Arch</span>
+                                    <span class="project-card__tag">Multi-tenant</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Seu Projeto -->
+                        <div class="project-card" data-carousel-item>
+                            <div class="project-card__thumb">
+                                <span class="project-card__badge badge--soon">Em breve</span>
+                            </div>
+                            <div class="project-card__body">
+                                <h3 class="project-card__title">Seu projeto</h3>
+                                <p class="project-card__desc">Cada empresa tem um desafio &uacute;nico. A pr&oacute;xima solu&ccedil;&atilde;o pode ser a sua.</p>
+                                <div class="project-card__tags">
+                                    <span class="project-card__tag">Stack flex&iacute;vel</span>
+                                    <span class="project-card__tag">Sob medida</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-dots" data-carousel-dots></div>
+            </div>
+        </section>
+
+        <!-- Nossos SaaS Section -->
+        <section class="section saas" id="saas">
+            <div class="container">
+                <div class="saas__header reveal">
+                    <div class="saas__header-row">
+                        <div>
+                            <div class="section-label">// nossos produtos</div>
+                            <h2 class="section-title">SaaS prontos para o seu neg&oacute;cio.</h2>
+                        </div>
+                        <div class="carousel-controls">
+                            <button class="carousel-btn" data-saas-prev aria-label="Anterior">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                            </button>
+                            <button class="carousel-btn" data-saas-next aria-label="Pr&oacute;ximo">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="saas__subtitle">Sistemas desenvolvidos pela RiverFlow, dispon&iacute;veis para assinar agora. Sem setup complexo. Sem esperar meses de desenvolvimento.</p>
+                </div>
+
+                <div class="saas-carousel-wrapper">
+                    <div class="saas-carousel-track" data-saas-track>
+
+                        <!-- Card 1: FlowCivil -->
+                        <div class="saas-card" data-saas-item>
+                            <div class="saas-card__thumb">
+                                <span class="saas-card__area">Constru&ccedil;&atilde;o Civil</span>
+                                <img src="assets/saas/flowcivil-preview.svg" alt="FlowCivil — Dashboard de gestão de obras" class="saas-card__preview-img" loading="lazy" width="800" height="400">
+                            </div>
+                            <div class="saas-card__body">
+                                <h3 class="saas-card__name">FlowCivil</h3>
+                                <p class="saas-card__tagline">Gest&atilde;o de obras sem planilha, sem caos.</p>
+                                <p class="saas-card__desc">Obras, equipes, equipamentos e custos integrados em tempo real. Sem planilha. Sem grupo de WhatsApp pra saber o que está acontecendo em campo.</p>
+                                <div class="saas-card__actions">
+                                    <a href="#contato" class="saas-btn-primary">
+                                        Assinar agora
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                    </a>
+                                    <a href="saas/flowcivil.html" class="saas-btn-secondary">Conhecer o FlowCivil</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: FlowBarber -->
+                        <div class="saas-card" data-saas-item>
+                            <div class="saas-card__thumb">
+                                <span class="saas-card__area">Beleza &amp; Servi&ccedil;os</span>
+                                <img src="assets/saas/flowbarber-preview.svg" alt="FlowBarber — Agenda e automação para barbearias" class="saas-card__preview-img" loading="lazy" width="800" height="400">
+                            </div>
+                            <div class="saas-card__body">
+                                <h3 class="saas-card__name">FlowBarber</h3>
+                                <p class="saas-card__tagline">Sua barbearia no autom&aacute;tico.</p>
+                                <p class="saas-card__desc">Agendamento online, bot no WhatsApp, controle de estoque inteligente e campanhas de marketing &mdash; tudo integrado, tudo funcionando enquanto voc&ecirc; corta cabelo.</p>
+                                <div class="saas-card__actions">
+                                    <a href="#contato" class="saas-btn-primary">
+                                        Assinar agora
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                    </a>
+                                    <a href="saas/flowbarber.html" class="saas-btn-secondary">Conhecer o FlowBarber</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: FlowStock -->
+                        <div class="saas-card" data-saas-item>
+                            <div class="saas-card__thumb">
+                                <span class="saas-card__area">Varejo &amp; Mercado</span>
+                                <img src="assets/saas/flowstock-preview.svg" alt="FlowStock — Controle de estoque e margem para varejo" class="saas-card__preview-img" loading="lazy" width="800" height="400">
+                            </div>
+                            <div class="saas-card__body">
+                                <h3 class="saas-card__name">FlowStock</h3>
+                                <p class="saas-card__tagline">Estoque que se controla sozinho.</p>
+                                <p class="saas-card__desc">Para mercadinho e pequeno varejo. Estoque em tempo real, margem por produto e caixa fechado com rastreabilidade &mdash; sem caderno, sem adivinhação.</p>
+                                <div class="saas-card__actions">
+                                    <a href="#contato" class="saas-btn-primary">
+                                        Assinar agora
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                    </a>
+                                    <a href="saas/flowstock.html" class="saas-btn-secondary">Conhecer o FlowStock</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="saas-dots" data-saas-dots></div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section contact" id="contato">
+            <div class="container">
+                <div class="section-label reveal">// vamos conversar</div>
+                <h2 class="section-title reveal">An&aacute;lise t&eacute;cnica para seu desafio</h2>
+
+                <div class="contact__grid">
+                    <div class="contact__info reveal">
+                        <p>Descreva seu desafio, projeto ou ideia. Nossa equipe analisa os requisitos, a escala, as restri&ccedil;&otilde;es t&eacute;cnicas e retorna com uma avalia&ccedil;&atilde;o t&eacute;cnica clara: viabilidade, abordagem proposta, timeline e estrutura de entrega.</p>
+                        <p>N&atilde;o &eacute; uma conversa de venda. &Eacute; an&aacute;lise t&eacute;cnica feita por engenheiros.</p>
+
+                        <div class="contact__items">
+                            <div class="contact__item">
+                                <div class="contact__item-icon">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                </div>
+                                <div class="contact__item-text">
+                                    <a href="mailto:RiverFlow@riverflowdev.com" rel="noopener noreferrer">RiverFlow@riverflowdev.com</a>
+                                </div>
+                            </div>
+
+                            <div class="contact__item">
+                                <div class="contact__item-icon">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                </div>
+                                <div class="contact__item-text">Aracaju, Sergipe &mdash; atendimento em todo o Brasil</div>
+                            </div>
+
+                            <div class="contact__item">
+                                <div class="contact__item-icon">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                </div>
+                                <div class="contact__item-text">Retorno em at&eacute; 48h &uacute;teis</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-card reveal reveal-delay-1">
+                        <form data-contact-form novalidate>
+                            <div class="form-group">
+                                <label for="inputNome">Nome</label>
+                                <input type="text" id="inputNome" name="nome" placeholder="Seu nome completo" autocomplete="name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmpresa">Empresa</label>
+                                <input type="text" id="inputEmpresa" name="empresa" placeholder="Nome da sua empresa" autocomplete="organization" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputReceita">Receita recorrente mensal</label>
+                                <select id="inputReceita" name="receitaMensal" required>
+                                    <option value="" disabled selected>Selecione uma faixa</option>
+                                    <option value="ate-10k">Até R$ 10 mil</option>
+                                    <option value="10k-50k">R$ 10 mil a R$ 50 mil</option>
+                                    <option value="50k-200k">R$ 50 mil a R$ 200 mil</option>
+                                    <option value="200k-1m">R$ 200 mil a R$ 1 milhão</option>
+                                    <option value="acima-1m">Acima de R$ 1 milhão</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail">Email</label>
+                                <div class="field-wrapper">
+                                    <input type="email" id="inputEmail" name="email" placeholder="seu@email.com" autocomplete="email" required>
+                                    <span class="field-indicator" id="emailIndicator" aria-live="polite"></span>
+                                </div>
+                                <span class="field-hint" id="emailHint"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputTel">Telefone</label>
+                                <div class="field-wrapper">
+                                    <input type="tel" id="inputTel" name="telefone" placeholder="(00) 00000-0000" autocomplete="tel" required>
+                                    <span class="field-indicator" id="phoneIndicator" aria-live="polite"></span>
+                                </div>
+                                <span class="field-hint" id="phoneHint"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputMsg">Sobre o seu projeto</label>
+                                <textarea id="inputMsg" name="mensagem" placeholder="Conte-nos sobre o seu projeto ou desafio de negócio. Quanto mais detalhes, melhor será nossa análise inicial..." rows="5" required></textarea>
+                                <div class="char-counter">
+                                    <span id="charCount">0</span>/50 caracteres m&iacute;nimos
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-submit" disabled>Enviar mensagem</button>
+
+                            <p class="form-note">Seus dados s&atilde;o utilizados exclusivamente para contato comercial.</p>
+                        </form>
+
+                        <div class="form-success" data-form-success>
+                            <svg class="form-success__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <h3 class="form-success__title">Mensagem enviada</h3>
+                            <p class="form-success__text">Nossa equipe recebeu sua mensagem e retornar&aacute; com uma avalia&ccedil;&atilde;o t&eacute;cnica em at&eacute; 48 horas &uacute;teis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <div class="footer__logo">
+                        <svg width="144" height="29" viewBox="0 0 248 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="RiverFlow">
+                            <defs>
+                                <linearGradient id="ft-fg" x1="138" y1="0" x2="195" y2="0" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#1565C0"/>
+                                    <stop offset="100%" stop-color="#64B5F6"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M24 3 C17 3 13 7 13 13 L13 19 C13 23 9 24.5 6 25.5 C9 26.5 13 28 13 32 L13 39 C13 44.5 17 47 24 47" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M52 3 C59 3 63 7 63 13 L63 19 C63 23 67 24.5 70 25.5 C67 26.5 63 28 63 32 L63 39 C63 44.5 59 47 52 47" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19 25.5 C23 13.5 33 13.5 38 25.5 C43 37.5 53 37.5 57 25.5" stroke="#4FC3F7" stroke-width="2.8" stroke-linecap="round"/>
+                            <path d="M19 28 C23 16 33 16 38 28 C43 40 53 40 57 28" stroke="#1565C0" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/>
+                            <text x="83" y="33" font-family="Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" font-weight="700" font-size="23">
+                                <tspan fill="#FFFFFF">River</tspan><tspan fill="url(#ft-fg)">Flow</tspan>
+                            </text>
+                        </svg>
+                    </div>
+                    <p class="footer__tagline">Software que flui.</p>
+                    <div class="footer__social">
+                        <a href="https://instagram.com/riverflow.dev" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <a href="https://github.com/riverflow-dev" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer__section">
+                    <h4 class="footer__nav-title">Navega&ccedil;&atilde;o</h4>
+                    <a href="#sobre" class="footer__link">Sobre</a>
+                    <a href="#valores" class="footer__link">Valores</a>
+                    <a href="#portfolio" class="footer__link">Projetos B2B</a>
+                    <a href="#saas" class="footer__link">Nossos SaaS</a>
+                    <a href="#contato" class="footer__link">Contato</a>
+                </div>
+
+                <div class="footer__section">
+                    <h4 class="footer__nav-title">Contato</h4>
+                    <a href="mailto:RiverFlow@riverflowdev.com" class="footer__link" rel="noopener noreferrer">RiverFlow@riverflowdev.com</a>
+                    <a href="https://instagram.com/riverflow.dev" target="_blank" rel="noopener noreferrer" class="footer__link">@riverflow.dev</a>
+                    <span class="footer__link">riverflowdev.com</span>
+                </div>
+            </div>
+
+            <div class="footer__bar">
+                <p class="footer__copyright">&copy; 2026 <span>RiverFlow</span> &mdash; Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Loading with defer -->
+    <script defer src="js/navbar.js"></script>
+    <script defer src="js/carousel.js"></script>
+    <script defer src="js/saas-carousel.js"></script>
+    <script defer src="js/animations.js"></script>
+    <script defer src="js/phone-mask.js"></script>
+    <script defer src="js/contact-form.js"></script>
+    <script defer src="js/hero-canvas.js"></script>
+</body>
+</html>
