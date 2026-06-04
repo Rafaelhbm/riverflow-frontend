@@ -74,132 +74,86 @@
     updateSubmit();
   });
 
-  // ─── Validação: Email (MX record via backend) ─────────────────
-  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  let emailTimer;
-  // Ao sair do campo: validação definitiva (pode mostrar ✗)
-  emailInput.addEventListener('blur', () => validateEmail(true));
-  emailInput.addEventListener('input', () => {
-    clearTimeout(emailTimer);
-    setIndicator(emailInd, emailHint, '', '');
-    emailInput.classList.remove('input--valid', 'input--error');
-    valid.email = false;
-    updateSubmit();
-    const val = emailInput.value.trim();
-    // Enquanto digita, só checa quando o e-mail JÁ está completo — e nunca mostra "inválido"
-    if (EMAIL_RE.test(val)) {
-      emailTimer = setTimeout(() => validateEmail(false), 700);
-    }
-  });
+  // ─── Validação: Email (no navegador — instantânea e confiável) ─
+  // Regex prático (RFC-friendly): aceita e-mails reais, barra malformados.
+  const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+
+  emailInput.addEventListener('input', () => validateEmail(false)); // ao vivo: só confirma ✓
+  emailInput.addEventListener('blur',  () => validateEmail(true));  // ao sair: pode mostrar ✗
 
   // showInvalid=false enquanto digita (não mostra ✗); true ao sair do campo
-  async function validateEmail(showInvalid = true) {
+  function validateEmail(showInvalid = true) {
     const val = emailInput.value.trim();
-    if (!val) return;
 
-    setIndicator(emailInd, emailHint, 'checking', 'Verificando...');
+    if (!val) {
+      setIndicator(emailInd, emailHint, '', '');
+      emailInput.classList.remove('input--valid', 'input--error');
+      valid.email = false;
+      updateSubmit();
+      return;
+    }
 
-    try {
-      const res  = await fetch(`${API_BASE_URL}/api/validate/email`, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ email: val })
-      });
-      const data = await res.json();
-
-      if (data.valid) {
-        setIndicator(emailInd, emailHint, 'valid', 'Email válido');
-        setFieldState(emailInput, true);
-        valid.email = true;
+    if (EMAIL_RE.test(val)) {
+      setIndicator(emailInd, emailHint, 'valid', 'Email válido');
+      setFieldState(emailInput, true);
+      valid.email = true;
+    } else {
+      valid.email = false;
+      if (showInvalid) {
+        setIndicator(emailInd, emailHint, 'invalid', 'Email inválido');
+        setFieldState(emailInput, false);
       } else {
-        valid.email = false;
-        if (showInvalid) {
-          setIndicator(emailInd, emailHint, 'invalid', data.reason || 'Email inválido');
-          setFieldState(emailInput, false);
-        } else {
-          setIndicator(emailInd, emailHint, '', ''); // neutro enquanto digita
-        }
-      }
-    } catch {
-      // Servidor indisponível (ex: cold start) — valida o formato localmente
-      if (EMAIL_RE.test(val)) {
-        setIndicator(emailInd, emailHint, 'valid', 'Email válido');
-        setFieldState(emailInput, true);
-        valid.email = true;
-      } else {
-        valid.email = false;
-        if (showInvalid) {
-          setIndicator(emailInd, emailHint, 'invalid', 'Email inválido');
-          setFieldState(emailInput, false);
-        } else {
-          setIndicator(emailInd, emailHint, '', '');
-        }
+        setIndicator(emailInd, emailHint, '', ''); // neutro enquanto digita
+        emailInput.classList.remove('input--valid', 'input--error');
       }
     }
 
     updateSubmit();
   }
 
-  // ─── Validação: Telefone (DDD brasileiro via backend) ─────────
-  let phoneTimer;
-  // Ao sair do campo: validação definitiva (pode mostrar ✗)
-  phoneInput.addEventListener('blur', () => validatePhone(true));
-  phoneInput.addEventListener('input', () => {
-    clearTimeout(phoneTimer);
-    setIndicator(phoneInd, phoneHint, '', '');
-    phoneInput.classList.remove('input--valid', 'input--error');
-    valid.phone = false;
-    updateSubmit();
-    const digits = phoneInput.value.replace(/\D/g, '');
-    // Enquanto digita, só checa quando o número JÁ está completo — e nunca mostra "inválido"
-    if (digits.length === 10 || digits.length === 11) {
-      phoneTimer = setTimeout(() => validatePhone(false), 500);
-    }
-  });
+  // ─── Validação: Telefone (DDD + celular, no navegador) ────────
+  const VALID_DDDS = new Set([
+    11,12,13,14,15,16,17,18,19, 21,22,24,27,28, 31,32,33,34,35,37,38,
+    41,42,43,44,45,46,47,48,49, 51,53,54,55, 61,62,63,64,65,66,67,68,69,
+    71,73,74,75,77,79, 81,82,83,84,85,86,87,88,89, 91,92,93,94,95,96,97,98,99
+  ]);
+
+  // Retorna null se o número é válido; senão, o motivo
+  function phoneReason(digits) {
+    if (digits.length < 10 || digits.length > 11) return 'Telefone deve ter 10 ou 11 dígitos';
+    if (!VALID_DDDS.has(parseInt(digits.slice(0, 2), 10))) return 'DDD inválido';
+    if (digits.length === 11 && digits[2] !== '9') return 'Celular deve começar com 9 após o DDD';
+    return null;
+  }
+
+  phoneInput.addEventListener('input', () => validatePhone(false)); // ao vivo: só confirma ✓
+  phoneInput.addEventListener('blur',  () => validatePhone(true));  // ao sair: pode mostrar ✗
 
   // showInvalid=false enquanto digita (não mostra ✗); true ao sair do campo
-  async function validatePhone(showInvalid = true) {
-    const val = phoneInput.value.trim();
-    if (!val) return;
+  function validatePhone(showInvalid = true) {
+    const digits = phoneInput.value.replace(/\D/g, '');
 
-    setIndicator(phoneInd, phoneHint, 'checking', 'Verificando...');
+    if (!digits) {
+      setIndicator(phoneInd, phoneHint, '', '');
+      phoneInput.classList.remove('input--valid', 'input--error');
+      valid.phone = false;
+      updateSubmit();
+      return;
+    }
 
-    const markInvalid = (msg) => {
+    const reason = phoneReason(digits);
+    if (!reason) {
+      setIndicator(phoneInd, phoneHint, 'valid', 'Número válido');
+      setFieldState(phoneInput, true);
+      valid.phone = true;
+    } else {
       valid.phone = false;
       if (showInvalid) {
-        setIndicator(phoneInd, phoneHint, 'invalid', msg);
+        setIndicator(phoneInd, phoneHint, 'invalid', reason);
         setFieldState(phoneInput, false);
       } else {
         setIndicator(phoneInd, phoneHint, '', ''); // neutro enquanto digita
-      }
-    };
-
-    try {
-      const res  = await fetch(`${API_BASE_URL}/api/validate/phone`, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ telefone: val })
-      });
-      const data = await res.json();
-
-      if (data.valid) {
-        setIndicator(phoneInd, phoneHint, 'valid', 'Número válido');
-        setFieldState(phoneInput, true);
-        valid.phone = true;
-      } else {
-        markInvalid(data.reason || 'Telefone inválido');
-      }
-    } catch {
-      // Servidor indisponível (ex: cold start) — valida o formato localmente
-      const digits = val.replace(/\D/g, '');
-      const okFormat = (digits.length === 10 || digits.length === 11) &&
-                       (digits.length === 10 || digits[2] === '9');
-      if (okFormat) {
-        setIndicator(phoneInd, phoneHint, 'valid', 'Número válido');
-        setFieldState(phoneInput, true);
-        valid.phone = true;
-      } else {
-        markInvalid('Telefone inválido');
+        phoneInput.classList.remove('input--valid', 'input--error');
       }
     }
 
