@@ -46,7 +46,7 @@
 
   function setLoading(loading) {
     submitBtn.disabled = loading;
-    submitBtn.textContent = loading ? 'Enviando...' : 'Enviar mensagem';
+    submitBtn.textContent = loading ? 'Enviando...' : 'Entrar em contato';
     submitBtn.style.opacity = loading ? '0.7' : '1';
   }
 
@@ -223,16 +223,34 @@
       turnstileToken
     };
 
-    try {
+    // Envia com até 3 tentativas — cobre o "cold start" do servidor (que demora a acordar)
+    async function postContact(attempt = 1) {
       const res = await fetch(`${API_BASE_URL}/api/contact`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(data)
       });
+      // Erro de servidor/gateway (ex: 502/504 enquanto acorda) → tenta de novo
+      if (res.status >= 500 && attempt < 3) {
+        await new Promise(r => setTimeout(r, 2000));
+        return postContact(attempt + 1);
+      }
+      return res;
+    }
+
+    try {
+      let res;
+      try {
+        res = await postContact();
+      } catch {
+        // Falha de rede (provável cold start) → espera e tenta mais uma vez
+        await new Promise(r => setTimeout(r, 2500));
+        res = await postContact();
+      }
 
       if (res.status === 429 || res.status === 403) {
         const body = await res.json().catch(() => ({}));
-        showError(body.error || 'Não foi possível enviar sua mensagem. Tente novamente.');
+        showError(body.error || 'Não foi possível enviar o formulário. Tente novamente.');
         window.turnstile?.reset();
         setLoading(false);
         submitBtn.disabled = false;
@@ -244,7 +262,7 @@
       form.style.display = 'none';
       if (successEl) successEl.style.display = 'block';
     } catch {
-      showError('Não foi possível enviar sua mensagem. Tente novamente.');
+      showError('Não foi possível enviar o formulário. Tente novamente.');
       window.turnstile?.reset();
       setLoading(false);
       submitBtn.disabled = false;
