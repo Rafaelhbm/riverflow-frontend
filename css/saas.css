@@ -49,13 +49,22 @@
 .saas-carousel-track {
   display: flex;
   gap: 24px;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;        /* Firefox */
+  overscroll-behavior-x: contain;
+}
+
+.saas-carousel-track::-webkit-scrollbar {  /* Chrome/Safari */
+  display: none;
 }
 
 /* ── Card SaaS ─────────────────────────────────── */
 
 .saas-card {
   min-width: calc(86vw);
+  scroll-snap-align: start;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);

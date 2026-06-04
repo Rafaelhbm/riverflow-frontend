@@ -1,13 +1,13 @@
 'use strict';
 
-(function() {
+(function () {
   const carousel = {
     track: null,
     dotsContainer: null,
     currentIndex: 0,
     autoPlayInterval: null,
-    touchStartX: 0,
     resizeTimeout: null,
+    scrollTimeout: null,
     isHovered: false,
 
     init() {
@@ -22,98 +22,79 @@
     },
 
     setupEvents() {
-      // Navigation buttons
       const nextBtn = document.querySelector('[data-carousel-next]');
       const prevBtn = document.querySelector('[data-carousel-prev]');
-
       if (nextBtn) nextBtn.addEventListener('click', () => this.next());
       if (prevBtn) prevBtn.addEventListener('click', () => this.prev());
 
-      // Dots click
+      // Dots
       const dots = this.dotsContainer?.querySelectorAll('[data-dot]');
-      dots?.forEach((dot, index) => {
-        dot.addEventListener('click', () => this.goTo(index));
-      });
+      dots?.forEach((dot, index) => dot.addEventListener('click', () => this.goTo(index)));
 
-      // Arrastar/deslizar (mouse + toque) com drag contínuo e snap
-      this.enableDrag();
+      // Atualiza os dots conforme o usuário rola/desliza de lado (trackpad, toque, scroll)
+      this.track.addEventListener('scroll', () => {
+        clearTimeout(this.scrollTimeout);
+        this.scrollTimeout = setTimeout(() => this.syncFromScroll(), 90);
+      }, { passive: true });
 
-      // Pause autoplay on hover
-      this.track.addEventListener('mouseenter', () => {
-        this.isHovered = true;
-        this.stopAutoPlay();
-      });
+      // Arrastar com o mouse (toque e trackpad já rolam de lado nativamente)
+      this.enableMouseDragScroll();
 
-      this.track.addEventListener('mouseleave', () => {
-        this.isHovered = false;
-        this.startAutoPlay();
-      });
+      // Pausa o autoplay enquanto o mouse está sobre o carrossel
+      this.track.addEventListener('mouseenter', () => { this.isHovered = true; this.stopAutoPlay(); });
+      this.track.addEventListener('mouseleave', () => { this.isHovered = false; this.startAutoPlay(); });
 
-      // Debounced resize
       window.addEventListener('resize', () => {
         clearTimeout(this.resizeTimeout);
         this.resizeTimeout = setTimeout(() => this.handleResize(), 250);
       });
     },
 
-    enableDrag() {
+    // Arraste com o mouse vira scroll horizontal (mouse não tem swipe nativo)
+    enableMouseDragScroll() {
       const track = this.track;
-      let startX = 0, baseOffset = 0, cardWidth = 0, dragging = false, moved = false;
+      let down = false, startX = 0, startScroll = 0, moved = false;
 
       track.style.cursor = 'grab';
-      track.style.touchAction = 'pan-y';
-      track.style.userSelect = 'none'; // permite rolar a página na vertical
 
-      const onDown = (e) => {
-        dragging = true;
-        moved = false;
+      track.addEventListener('pointerdown', (e) => {
+        if (e.pointerType !== 'mouse') return; // toque/trackpad usam scroll nativo
+        down = true; moved = false;
         startX = e.clientX;
-        const firstCard = track.querySelector('[data-carousel-item]');
-        cardWidth = (firstCard?.offsetWidth || 1) + 24; // 24px de gap
-        baseOffset = -this.currentIndex * cardWidth;
-        track.style.transition = 'none';
+        startScroll = track.scrollLeft;
         track.style.cursor = 'grabbing';
+        track.style.userSelect = 'none';
         this.stopAutoPlay();
         try { track.setPointerCapture(e.pointerId); } catch (_) {}
-      };
+      });
 
-      const onMove = (e) => {
-        if (!dragging) return;
+      track.addEventListener('pointermove', (e) => {
+        if (!down) return;
         const dx = e.clientX - startX;
         if (Math.abs(dx) > 5) moved = true;
-        track.style.transform = `translateX(${baseOffset + dx}px)`; // segue o cursor/dedo
-      };
+        track.scrollLeft = startScroll - dx; // segue o cursor
+      });
 
-      const onUp = (e) => {
-        if (!dragging) return;
-        dragging = false;
-        track.style.transition = '';
+      const up = (e) => {
+        if (!down) return;
+        down = false;
         track.style.cursor = 'grab';
-        const dx = (typeof e.clientX === 'number' ? e.clientX : startX) - startX;
-        let steps = Math.round(-dx / cardWidth);
-        if (steps === 0 && Math.abs(dx) > 40) steps = dx < 0 ? 1 : -1; // arraste curto e rápido
-        this.goTo(this.currentIndex + steps); // encaixa no slide (com clamp)
+        track.style.userSelect = '';
         this.startAutoPlay();
         try { track.releasePointerCapture(e.pointerId); } catch (_) {}
       };
+      track.addEventListener('pointerup', up);
+      track.addEventListener('pointercancel', up);
 
-      track.addEventListener('pointerdown', onDown);
-      track.addEventListener('pointermove', onMove);
-      track.addEventListener('pointerup', onUp);
-      track.addEventListener('pointercancel', onUp);
-
-      // Um arraste não deve disparar o clique em links/cards
+      // Um arraste não deve abrir links/cards
       track.addEventListener('click', (e) => {
         if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
       }, true);
-
-      // Evita o "ghost drag" nativo de imagens/links
       track.addEventListener('dragstart', (e) => e.preventDefault());
     },
 
     buildDots() {
       if (!this.dotsContainer) return;
-
       this.dotsContainer.innerHTML = '';
       const maxIndex = this.getMaxIndex();
 
@@ -135,52 +116,47 @@
 
     getMaxIndex() {
       const cards = this.track?.querySelectorAll('[data-carousel-item]');
-      const totalCards = cards?.length || 0;
-      const visibleCount = this.getVisibleCount();
-      return Math.max(0, totalCards - visibleCount);
+      return Math.max(0, (cards?.length || 0) - this.getVisibleCount());
+    },
+
+    cardStep() {
+      const firstCard = this.track?.querySelector('[data-carousel-item]');
+      return (firstCard?.offsetWidth || 1) + 24; // largura + gap
     },
 
     goTo(index) {
-      const maxIndex = this.getMaxIndex();
-      this.currentIndex = Math.max(0, Math.min(index, maxIndex));
+      this.currentIndex = Math.max(0, Math.min(index, this.getMaxIndex()));
+      this.track.scrollTo({ left: this.currentIndex * this.cardStep(), behavior: 'smooth' });
+      this.updateDots();
+    },
 
-      const firstCard = this.track?.querySelector('[data-carousel-item]');
-      const cardWidth = (firstCard?.offsetWidth || 0) + 24; // 24px gap
-      const offset = this.currentIndex * cardWidth;
-
-      this.track.style.transform = `translateX(-${offset}px)`;
+    // Mantém os dots em sincronia com a posição real do scroll
+    syncFromScroll() {
+      const idx = Math.round(this.track.scrollLeft / this.cardStep());
+      this.currentIndex = Math.max(0, Math.min(idx, this.getMaxIndex()));
       this.updateDots();
     },
 
     next() {
-      const maxIndex = this.getMaxIndex();
-      const nextIndex = this.currentIndex >= maxIndex ? 0 : this.currentIndex + 1;
-      this.goTo(nextIndex);
+      const max = this.getMaxIndex();
+      this.goTo(this.currentIndex >= max ? 0 : this.currentIndex + 1);
     },
 
     prev() {
-      const maxIndex = this.getMaxIndex();
-      const prevIndex = this.currentIndex <= 0 ? maxIndex : this.currentIndex - 1;
-      this.goTo(prevIndex);
+      const max = this.getMaxIndex();
+      this.goTo(this.currentIndex <= 0 ? max : this.currentIndex - 1);
     },
 
     updateDots() {
-      const dots = this.dotsContainer?.querySelectorAll('[data-dot]');
-      dots?.forEach((dot, index) => {
-        if (index === this.currentIndex) {
-          dot.classList.add('dot--active');
-        } else {
-          dot.classList.remove('dot--active');
-        }
+      this.dotsContainer?.querySelectorAll('[data-dot]').forEach((dot, i) => {
+        dot.classList.toggle('dot--active', i === this.currentIndex);
       });
     },
 
     startAutoPlay() {
       if (this.isHovered) return;
-
-      this.autoPlayInterval = setInterval(() => {
-        this.next();
-      }, 5000);
+      this.stopAutoPlay(); // evita múltiplos intervalos
+      this.autoPlayInterval = setInterval(() => this.next(), 5000);
     },
 
     stopAutoPlay() {
@@ -188,22 +164,11 @@
     },
 
     handleResize() {
-      const maxIndex = this.getMaxIndex();
-      if (this.currentIndex > maxIndex) {
-        this.currentIndex = maxIndex;
-      }
+      if (this.currentIndex > this.getMaxIndex()) this.currentIndex = this.getMaxIndex();
       this.buildDots();
       this.goTo(this.currentIndex);
-    },
-
-    destroy() {
-      this.stopAutoPlay();
-      clearTimeout(this.resizeTimeout);
-      window.removeEventListener('resize', () => this.handleResize());
     }
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
-    carousel.init();
-  });
+  document.addEventListener('DOMContentLoaded', () => carousel.init());
 })();
