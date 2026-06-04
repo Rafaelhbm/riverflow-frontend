@@ -179,7 +179,7 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    if (!valid.nome || !valid.email || !valid.phone || !valid.mensagem) return;
+    if (!valid.nome || !valid.empresa || !valid.receita || !valid.email || !valid.phone || !valid.mensagem) return;
 
     setLoading(true);
 
