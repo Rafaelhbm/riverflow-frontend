@@ -75,8 +75,10 @@
   });
 
   // ─── Validação: Email (MX record via backend) ─────────────────
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   let emailTimer;
-  emailInput.addEventListener('blur', () => validateEmail());
+  // Ao sair do campo: validação definitiva (pode mostrar ✗)
+  emailInput.addEventListener('blur', () => validateEmail(true));
   emailInput.addEventListener('input', () => {
     clearTimeout(emailTimer);
     setIndicator(emailInd, emailHint, '', '');
@@ -84,12 +86,14 @@
     valid.email = false;
     updateSubmit();
     const val = emailInput.value.trim();
-    if (val.includes('@') && val.includes('.')) {
-      emailTimer = setTimeout(() => validateEmail(), 600);
+    // Enquanto digita, só checa quando o e-mail JÁ está completo — e nunca mostra "inválido"
+    if (EMAIL_RE.test(val)) {
+      emailTimer = setTimeout(() => validateEmail(false), 700);
     }
   });
 
-  async function validateEmail() {
+  // showInvalid=false enquanto digita (não mostra ✗); true ao sair do campo
+  async function validateEmail(showInvalid = true) {
     const val = emailInput.value.trim();
     if (!val) return;
 
@@ -108,21 +112,28 @@
         setFieldState(emailInput, true);
         valid.email = true;
       } else {
-        setIndicator(emailInd, emailHint, 'invalid', data.reason || 'Email inválido');
-        setFieldState(emailInput, false);
         valid.email = false;
+        if (showInvalid) {
+          setIndicator(emailInd, emailHint, 'invalid', data.reason || 'Email inválido');
+          setFieldState(emailInput, false);
+        } else {
+          setIndicator(emailInd, emailHint, '', ''); // neutro enquanto digita
+        }
       }
     } catch {
       // Servidor indisponível (ex: cold start) — valida o formato localmente
-      const okFormat = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val);
-      if (okFormat) {
+      if (EMAIL_RE.test(val)) {
         setIndicator(emailInd, emailHint, 'valid', 'Email válido');
         setFieldState(emailInput, true);
         valid.email = true;
       } else {
-        setIndicator(emailInd, emailHint, 'invalid', 'Email inválido');
-        setFieldState(emailInput, false);
         valid.email = false;
+        if (showInvalid) {
+          setIndicator(emailInd, emailHint, 'invalid', 'Email inválido');
+          setFieldState(emailInput, false);
+        } else {
+          setIndicator(emailInd, emailHint, '', '');
+        }
       }
     }
 
@@ -130,13 +141,38 @@
   }
 
   // ─── Validação: Telefone (DDD brasileiro via backend) ─────────
-  phoneInput.addEventListener('blur', () => validatePhone());
+  let phoneTimer;
+  // Ao sair do campo: validação definitiva (pode mostrar ✗)
+  phoneInput.addEventListener('blur', () => validatePhone(true));
+  phoneInput.addEventListener('input', () => {
+    clearTimeout(phoneTimer);
+    setIndicator(phoneInd, phoneHint, '', '');
+    phoneInput.classList.remove('input--valid', 'input--error');
+    valid.phone = false;
+    updateSubmit();
+    const digits = phoneInput.value.replace(/\D/g, '');
+    // Enquanto digita, só checa quando o número JÁ está completo — e nunca mostra "inválido"
+    if (digits.length === 10 || digits.length === 11) {
+      phoneTimer = setTimeout(() => validatePhone(false), 500);
+    }
+  });
 
-  async function validatePhone() {
+  // showInvalid=false enquanto digita (não mostra ✗); true ao sair do campo
+  async function validatePhone(showInvalid = true) {
     const val = phoneInput.value.trim();
     if (!val) return;
 
     setIndicator(phoneInd, phoneHint, 'checking', 'Verificando...');
+
+    const markInvalid = (msg) => {
+      valid.phone = false;
+      if (showInvalid) {
+        setIndicator(phoneInd, phoneHint, 'invalid', msg);
+        setFieldState(phoneInput, false);
+      } else {
+        setIndicator(phoneInd, phoneHint, '', ''); // neutro enquanto digita
+      }
+    };
 
     try {
       const res  = await fetch(`${API_BASE_URL}/api/validate/phone`, {
@@ -151,9 +187,7 @@
         setFieldState(phoneInput, true);
         valid.phone = true;
       } else {
-        setIndicator(phoneInd, phoneHint, 'invalid', data.reason || 'Telefone inválido');
-        setFieldState(phoneInput, false);
-        valid.phone = false;
+        markInvalid(data.reason || 'Telefone inválido');
       }
     } catch {
       // Servidor indisponível (ex: cold start) — valida o formato localmente
@@ -165,9 +199,7 @@
         setFieldState(phoneInput, true);
         valid.phone = true;
       } else {
-        setIndicator(phoneInd, phoneHint, 'invalid', 'Telefone inválido');
-        setFieldState(phoneInput, false);
-        valid.phone = false;
+        markInvalid('Telefone inválido');
       }
     }
 
