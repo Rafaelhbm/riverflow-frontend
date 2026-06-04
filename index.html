@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RiverFlow desenvolve software sob medida para empresas B2B e oferece SaaS próprios (FlowCivil, FlowBarber, FlowStock) prontos para assinar. Clean Architecture, entregas em sprints, suporte real. Aracaju, atendimento nacional.">
+    <meta name="description" content="RiverFlow desenvolve software sob medida para empresas B2B e oferece SaaS próprios (FlowCivil e FlowBarber) prontos para assinar. Clean Architecture, entregas em sprints, suporte real. Aracaju, atendimento nacional.">
     <meta name="author" content="RiverFlow">
     <meta name="robots" content="index, follow">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <!-- Open Graph -->
     <meta property="og:title" content="RiverFlow — Software que flui.">
-    <meta property="og:description" content="Software sob medida para B2B e SaaS próprios prontos para assinar: FlowCivil, FlowBarber e FlowStock. Engenharia séria, entregas em sprints curtos, suporte real.">
+    <meta property="og:description" content="Software sob medida para B2B e SaaS próprios prontos para assinar: FlowCivil e FlowBarber. Engenharia séria, entregas em sprints curtos, suporte real.">
     <meta property="og:image" content="https://riverflowdev.com/assets/og-image.png">
     <meta property="og:url" content="https://riverflowdev.com">
     <meta property="og:type" content="website">
@@ -19,6 +19,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Cloudflare Turnstile (captcha do formulário) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
     <!-- CSS Loading Order -->
     <link rel="stylesheet" href="css/variables.css">
@@ -137,7 +140,7 @@
 
                 <div class="grid-2">
                     <div class="about__text">
-                        <p class="reveal">Come&ccedil;ou em Paulo Afonso, Bahia. Uma cidade cercada pelo rio S&atilde;o Francisco, onde a &aacute;gua n&atilde;o apenas passa &mdash; ela molda, adapta, segue. Rafael cresceu nesse ambiente e aprendeu uma li&ccedil;&atilde;o simples: fluxo &eacute; tudo. A &aacute;gua n&atilde;o for&ccedil;a seu caminho atrav&eacute;s das pedras. Ela encontra o caminho. Esse &eacute; o princ&iacute;pio da <strong>RiverFlow</strong>.</p>
+                        <p class="reveal">Nascemos em Paulo Afonso, Bahia. Uma cidade cercada pelo rio S&atilde;o Francisco, onde a &aacute;gua n&atilde;o apenas passa &mdash; ela molda, adapta, segue. Crescemos nesse ambiente e aprendemos uma li&ccedil;&atilde;o simples: fluxo &eacute; tudo. A &aacute;gua n&atilde;o for&ccedil;a seu caminho atrav&eacute;s das pedras. Ela encontra o caminho. Esse &eacute; o princ&iacute;pio da <strong>RiverFlow</strong>.</p>
 
                         <p class="reveal reveal-delay-1">Hoje, a empresa est&aacute; baseada em Aracaju, Sergipe, e atende neg&oacute;cios em todo o Brasil. Desenvolvemos software que se <strong>adapta ao fluxo do seu neg&oacute;cio</strong>, n&atilde;o o contr&aacute;rio. Cada empresa tem um desafio &uacute;nico. Entender isso faz a diferen&ccedil;a entre um produto gen&eacute;rico e uma solu&ccedil;&atilde;o que realmente funciona.</p>
 
@@ -247,7 +250,7 @@
                         <!-- Card 2: Produtiva -->
                         <div class="project-card" data-carousel-item>
                             <div class="project-card__thumb">
-                                <span class="project-card__badge badge--dev">Em desenvolvimento</span>
+                                <span class="project-card__badge badge--live">Em produ&ccedil;&atilde;o</span>
                             </div>
                             <div class="project-card__body">
                                 <h3 class="project-card__title">Produtiva</h3>
@@ -257,6 +260,23 @@
                                     <span class="project-card__tag">Node.js</span>
                                     <span class="project-card__tag">PostgreSQL</span>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Card: Inovamix -->
+                        <div class="project-card" data-carousel-item>
+                            <a href="https://inovamix.ind.br" target="_blank" rel="noopener noreferrer" class="project-card__thumb" aria-label="Visitar site da Inovamix">
+                                <span class="project-card__badge badge--live">Em produ&ccedil;&atilde;o</span>
+                            </a>
+                            <div class="project-card__body">
+                                <h3 class="project-card__title">Inovamix</h3>
+                                <p class="project-card__desc">Site institucional B2B desenvolvido pela RiverFlow &mdash; identidade, performance e presen&ccedil;a digital sob medida.</p>
+                                <div class="project-card__tags">
+                                    <span class="project-card__tag">Next.js</span>
+                                    <span class="project-card__tag">Tailwind</span>
+                                    <span class="project-card__tag">Framer Motion</span>
+                                </div>
+                                <a href="https://inovamix.ind.br" target="_blank" rel="noopener noreferrer" class="project-card__link">Visitar site &rarr;</a>
                             </div>
                         </div>
 
@@ -276,18 +296,19 @@
                             </div>
                         </div>
 
-                        <!-- Card 4: Seu Projeto -->
-                        <div class="project-card" data-carousel-item>
+                        <!-- Card 4: Seu Projeto (CTA) -->
+                        <div class="project-card project-card--cta" data-carousel-item>
                             <div class="project-card__thumb">
-                                <span class="project-card__badge badge--soon">Em breve</span>
+                                <span class="project-card__badge badge--soon">Vamos come&ccedil;ar</span>
                             </div>
                             <div class="project-card__body">
                                 <h3 class="project-card__title">Seu projeto</h3>
-                                <p class="project-card__desc">Cada empresa tem um desafio &uacute;nico. A pr&oacute;xima solu&ccedil;&atilde;o pode ser a sua.</p>
+                                <p class="project-card__desc">Cada empresa tem um desafio &uacute;nico &mdash; e o pr&oacute;ximo pode ser o seu. Conte pra gente sua ideia e a gente constr&oacute;i a solu&ccedil;&atilde;o sob medida, do zero ao deploy.</p>
                                 <div class="project-card__tags">
                                     <span class="project-card__tag">Stack flex&iacute;vel</span>
                                     <span class="project-card__tag">Sob medida</span>
                                 </div>
+                                <a href="#contato" class="project-card__link">Criar meu projeto &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -325,6 +346,7 @@
                         <div class="saas-card" data-saas-item>
                             <div class="saas-card__thumb">
                                 <span class="saas-card__area">Constru&ccedil;&atilde;o Civil</span>
+                                <span class="saas-card__status">Em produ&ccedil;&atilde;o</span>
                                 <img src="assets/saas/flowcivil-preview.svg" alt="FlowCivil — Dashboard de gestão de obras" class="saas-card__preview-img" loading="lazy" width="800" height="400">
                             </div>
                             <div class="saas-card__body">
@@ -345,6 +367,7 @@
                         <div class="saas-card" data-saas-item>
                             <div class="saas-card__thumb">
                                 <span class="saas-card__area">Beleza &amp; Servi&ccedil;os</span>
+                                <span class="saas-card__status">Em produ&ccedil;&atilde;o</span>
                                 <img src="assets/saas/flowbarber-preview.svg" alt="FlowBarber — Agenda e automação para barbearias" class="saas-card__preview-img" loading="lazy" width="800" height="400">
                             </div>
                             <div class="saas-card__body">
@@ -361,25 +384,6 @@
                             </div>
                         </div>
 
-                        <!-- Card 3: FlowStock -->
-                        <div class="saas-card" data-saas-item>
-                            <div class="saas-card__thumb">
-                                <span class="saas-card__area">Varejo &amp; Mercado</span>
-                                <img src="assets/saas/flowstock-preview.svg" alt="FlowStock — Controle de estoque e margem para varejo" class="saas-card__preview-img" loading="lazy" width="800" height="400">
-                            </div>
-                            <div class="saas-card__body">
-                                <h3 class="saas-card__name">FlowStock</h3>
-                                <p class="saas-card__tagline">Estoque que se controla sozinho.</p>
-                                <p class="saas-card__desc">Para mercadinho e pequeno varejo. Estoque em tempo real, margem por produto e caixa fechado com rastreabilidade &mdash; sem caderno, sem adivinhação.</p>
-                                <div class="saas-card__actions">
-                                    <a href="#contato" class="saas-btn-primary">
-                                        Assinar agora
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                                    </a>
-                                    <a href="saas/flowstock.html" class="saas-btn-secondary">Conhecer o FlowStock</a>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
@@ -475,6 +479,10 @@
                                 </div>
                             </div>
 
+                            <!-- Cloudflare Turnstile — TROCAR data-sitekey pela chave real do painel Cloudflare.
+                                 Chave de teste atual (1x000...AA) sempre passa, só serve para desenvolvimento. -->
+                            <div class="cf-turnstile form-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark" data-language="pt-br"></div>
+
                             <button type="submit" class="btn-submit" disabled>Enviar mensagem</button>
 
                             <p class="form-note">Seus dados s&atilde;o utilizados exclusivamente para contato comercial.</p>
@@ -515,6 +523,9 @@
                     </div>
                     <p class="footer__tagline">Software que flui.</p>
                     <div class="footer__social">
+                        <a href="https://www.linkedin.com/company/riverflowdev" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
                         <a href="https://instagram.com/riverflow.dev" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                         </a>
@@ -536,8 +547,10 @@
                 <div class="footer__section">
                     <h4 class="footer__nav-title">Contato</h4>
                     <a href="mailto:RiverFlow@riverflowdev.com" class="footer__link" rel="noopener noreferrer">RiverFlow@riverflowdev.com</a>
-                    <a href="https://instagram.com/riverflow.dev" target="_blank" rel="noopener noreferrer" class="footer__link">@riverflow.dev</a>
-                    <span class="footer__link">riverflowdev.com</span>
+                    <a href="https://wa.me/55SEU_NUMERO_AQUI" target="_blank" rel="noopener noreferrer" class="footer__link footer__link--wa">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.7-.84-2-.94-.26-.1-.46-.15-.65.15-.2.3-.74.94-.9 1.13-.17.2-.34.22-.63.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.14.3-.34.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.65-1.57-.9-2.15-.24-.56-.48-.48-.65-.49l-.56-.01c-.2 0-.5.07-.77.37-.26.3-1 1-1 2.42 0 1.43 1.03 2.8 1.17 3 .15.2 2.02 3.08 4.9 4.32.68.3 1.22.47 1.64.6.69.22 1.31.19 1.8.12.55-.08 1.7-.7 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.2-.56-.34z"/><path d="M12 2a10 10 0 0 0-8.6 15.06L2 22l4.94-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.1.81.83-3.02-.2-.31A8.2 8.2 0 1 1 12 20.2z"/></svg>
+                        WhatsApp
+                    </a>
                 </div>
             </div>
 

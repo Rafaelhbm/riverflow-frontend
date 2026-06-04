@@ -83,10 +83,22 @@
   margin-bottom: 10px;
   text-decoration: none;
   transition: color 0.2s ease;
+  overflow-wrap: anywhere;
 }
 
 .footer__link:hover {
   color: var(--white-foam);
+}
+
+.footer__link--wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.footer__link--wa svg {
+  flex-shrink: 0;
+  color: #25D366;
 }
 
 .footer__bar {

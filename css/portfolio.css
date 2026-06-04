@@ -104,10 +104,27 @@
 }
 
 .project-card__thumb {
+  display: block;
   position: relative;
   height: 180px;
   overflow: hidden;
   background: var(--deep-river);
+}
+
+.project-card__link {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--current);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.project-card__link:hover {
+  color: var(--flow-blue);
+  transform: translateX(3px);
 }
 
 .project-card__thumb img {

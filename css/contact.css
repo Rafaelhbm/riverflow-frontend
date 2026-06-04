@@ -61,6 +61,13 @@
 .contact__item-text {
   font-size: 14px;
   color: #4A5568;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.contact__item-text a {
+  overflow-wrap: anywhere;
 }
 
 .form-card {
@@ -212,6 +219,11 @@
 .char-counter.short   { color: #F59E0B; }
 
 
+.form-turnstile {
+  margin: 4px 0 18px;
+  min-height: 65px;
+}
+
 .btn-submit {
   width: 100%;
   padding: 14px;
@@ -269,4 +281,26 @@
 .form-success__text {
   font-size: 14px;
   color: #4A5568;
+}
+
+/* ─── Ajustes mobile ───────────────────────────────────────── */
+/* Centraliza o widget do Turnstile e impede que ele estoure o card */
+.form-turnstile {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  /* Menos padding no card libera largura para o captcha de 300px */
+  .form-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Em telas muito estreitas, escala o widget para caber sem quebrar */
+  .form-turnstile {
+    transform: scale(0.92);
+    transform-origin: center top;
+  }
 }

@@ -181,6 +181,13 @@
 
     if (!valid.nome || !valid.empresa || !valid.receita || !valid.email || !valid.phone || !valid.mensagem) return;
 
+    // Token do Cloudflare Turnstile (injetado pelo widget no form)
+    const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value || '';
+    if (!turnstileToken) {
+      showError('Complete a verificação anti-robô antes de enviar.');
+      return;
+    }
+
     setLoading(true);
 
     const data = {
@@ -189,7 +196,8 @@
       telefone:      phoneInput.value.replace(/\D/g, ''),
       empresa:       empresaInput.value.trim(),
       receitaMensal: receitaInput.value,
-      mensagem:      msgInput.value.trim()
+      mensagem:      msgInput.value.trim(),
+      turnstileToken
     };
 
     try {
@@ -199,9 +207,10 @@
         body:    JSON.stringify(data)
       });
 
-      if (res.status === 429) {
+      if (res.status === 429 || res.status === 403) {
         const body = await res.json().catch(() => ({}));
-        showError(body.error || 'Parece que já recebemos seu contato recentemente! Nossa equipe retornará em breve. Se preferir, escreva para contato@riverflowdev.com.');
+        showError(body.error || 'Não foi possível enviar sua mensagem. Tente novamente.');
+        window.turnstile?.reset();
         setLoading(false);
         submitBtn.disabled = false;
         return;
@@ -213,6 +222,7 @@
       if (successEl) successEl.style.display = 'block';
     } catch {
       showError('Não foi possível enviar sua mensagem. Tente novamente.');
+      window.turnstile?.reset();
       setLoading(false);
       submitBtn.disabled = false;
     }
