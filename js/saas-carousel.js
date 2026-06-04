@@ -43,6 +43,9 @@
         if (Math.abs(diff) > 40) diff > 0 ? this.next() : this.prev();
       });
 
+      // Arrastar com o mouse (desktop)
+      this.enableMouseDrag();
+
       // Pause on hover
       this.track.addEventListener('mouseenter', () => {
         this.isHovered = true;
@@ -57,6 +60,37 @@
         clearTimeout(this.resizeTimeout);
         this.resizeTimeout = setTimeout(() => this.handleResize(), 250);
       });
+    },
+
+    enableMouseDrag() {
+      let startX = 0, dragging = false, moved = false;
+      this.track.style.cursor = 'grab';
+
+      this.track.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'touch') return;
+        dragging = true; moved = false; startX = e.clientX;
+        this.track.style.cursor = 'grabbing';
+        this.stopAutoPlay();
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (dragging && Math.abs(e.clientX - startX) > 8) moved = true;
+      });
+
+      window.addEventListener('pointerup', (e) => {
+        if (!dragging) return;
+        dragging = false;
+        this.track.style.cursor = 'grab';
+        const diff = startX - e.clientX;
+        if (Math.abs(diff) > 40) { diff > 0 ? this.next() : this.prev(); }
+        this.startAutoPlay();
+      });
+
+      this.track.addEventListener('click', (e) => {
+        if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
+      }, true);
+
+      this.track.addEventListener('dragstart', (e) => e.preventDefault());
     },
 
     buildDots() {
