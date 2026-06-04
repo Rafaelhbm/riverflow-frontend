@@ -204,12 +204,11 @@
 
     if (!valid.nome || !valid.empresa || !valid.receita || !valid.email || !valid.phone || !valid.mensagem) return;
 
-    // Token do Cloudflare Turnstile (injetado pelo widget no form)
+    // Token do Cloudflare Turnstile (injetado pelo widget no form).
+    // Não-bloqueante por enquanto: o backend só exige o token quando uma
+    // chave real (TURNSTILE_SECRET_KEY) estiver configurada. Enquanto está
+    // em modo de teste, não impede o envio se o widget não gerar o token.
     const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value || '';
-    if (!turnstileToken) {
-      showError('Complete a verificação anti-robô antes de enviar.');
-      return;
-    }
 
     setLoading(true);
 
