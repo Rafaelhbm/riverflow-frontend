@@ -62,17 +62,21 @@
         down = true; moved = false;
         startX = e.clientX;
         startScroll = track.scrollLeft;
-        track.style.cursor = 'grabbing';
-        track.style.userSelect = 'none';
-        this.stopAutoPlay();
-        try { track.setPointerCapture(e.pointerId); } catch (_) {}
+        // NÃO captura aqui — capturar num clique simples impede o clique do link
       });
 
       track.addEventListener('pointermove', (e) => {
         if (!down) return;
         const dx = e.clientX - startX;
-        if (Math.abs(dx) > 5) moved = true;
-        track.scrollLeft = startScroll - dx; // segue o cursor
+        if (!moved && Math.abs(dx) > 5) {
+          // arraste começou de verdade — só agora assume o controle
+          moved = true;
+          track.style.cursor = 'grabbing';
+          track.style.userSelect = 'none';
+          this.stopAutoPlay();
+          try { track.setPointerCapture(e.pointerId); } catch (_) {}
+        }
+        if (moved) track.scrollLeft = startScroll - dx; // segue o cursor
       });
 
       const up = (e) => {
