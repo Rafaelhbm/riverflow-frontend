@@ -3,6 +3,7 @@
 .saas {
   position: relative;
   background: var(--deep-river);
+  overflow-x: clip; /* recorta o glow decorativo, evita overflow no mobile */
 }
 
 /* Glow sutil no topo da seção */

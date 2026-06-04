@@ -2,6 +2,7 @@
 
 .portfolio {
   position: relative;
+  overflow-x: clip; /* recorta o glow decorativo, evita overflow no mobile */
 }
 
 .portfolio::before {
