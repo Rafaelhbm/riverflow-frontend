@@ -191,6 +191,20 @@
 .field-indicator.valid::after  { content: '✓'; color: #22C55E; font-weight: 700; }
 .field-indicator.invalid::after { content: '✗'; color: #EF4444; font-weight: 700; }
 
+/* Quando inválido, o ✗ vira um botão clicável para limpar o campo */
+.field-indicator.invalid {
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.15s ease;
+}
+.field-indicator.invalid:hover {
+  background: #EF4444;
+}
+.field-indicator.invalid:hover::after {
+  color: #fff;
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }

@@ -113,8 +113,17 @@
         valid.email = false;
       }
     } catch {
-      setIndicator(emailInd, emailHint, 'invalid', 'Não foi possível verificar o email');
-      valid.email = false;
+      // Servidor indisponível (ex: cold start) — valida o formato localmente
+      const okFormat = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val);
+      if (okFormat) {
+        setIndicator(emailInd, emailHint, 'valid', 'Email válido');
+        setFieldState(emailInput, true);
+        valid.email = true;
+      } else {
+        setIndicator(emailInd, emailHint, 'invalid', 'Email inválido');
+        setFieldState(emailInput, false);
+        valid.email = false;
+      }
     }
 
     updateSubmit();
@@ -147,12 +156,40 @@
         valid.phone = false;
       }
     } catch {
-      setIndicator(phoneInd, phoneHint, 'invalid', 'Não foi possível verificar o número');
-      valid.phone = false;
+      // Servidor indisponível (ex: cold start) — valida o formato localmente
+      const digits = val.replace(/\D/g, '');
+      const okFormat = (digits.length === 10 || digits.length === 11) &&
+                       (digits.length === 10 || digits[2] === '9');
+      if (okFormat) {
+        setIndicator(phoneInd, phoneHint, 'valid', 'Número válido');
+        setFieldState(phoneInput, true);
+        valid.phone = true;
+      } else {
+        setIndicator(phoneInd, phoneHint, 'invalid', 'Telefone inválido');
+        setFieldState(phoneInput, false);
+        valid.phone = false;
+      }
     }
 
     updateSubmit();
   }
+
+  // ─── Botão X (indicador inválido) limpa o campo de uma vez ───
+  function clearField(input, indicator, hint, key) {
+    input.value = '';
+    input.classList.remove('input--valid', 'input--error');
+    setIndicator(indicator, hint, '', '');
+    valid[key] = false;
+    updateSubmit();
+    input.focus();
+  }
+
+  emailInd.addEventListener('click', () => {
+    if (emailInd.classList.contains('invalid')) clearField(emailInput, emailInd, emailHint, 'email');
+  });
+  phoneInd.addEventListener('click', () => {
+    if (phoneInd.classList.contains('invalid')) clearField(phoneInput, phoneInd, phoneHint, 'phone');
+  });
 
   // ─── Validação: Mensagem (mínimo 50 chars) ───────────────────
   msgInput.addEventListener('input', () => {
