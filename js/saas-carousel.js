@@ -34,17 +34,8 @@
         dot.addEventListener('click', () => this.goTo(index));
       });
 
-      // Touch swipe
-      this.track.addEventListener('touchstart', (e) => {
-        this.touchStartX = e.touches[0].clientX;
-      });
-      this.track.addEventListener('touchend', (e) => {
-        const diff = this.touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) diff > 0 ? this.next() : this.prev();
-      });
-
-      // Arrastar com o mouse (desktop)
-      this.enableMouseDrag();
+      // Arrastar/deslizar (mouse + toque) com drag contínuo e snap
+      this.enableDrag();
 
       // Pause on hover
       this.track.addEventListener('mouseenter', () => {
@@ -62,35 +53,57 @@
       });
     },
 
-    enableMouseDrag() {
-      let startX = 0, dragging = false, moved = false;
-      this.track.style.cursor = 'grab';
+    enableDrag() {
+      const track = this.track;
+      let startX = 0, baseOffset = 0, cardWidth = 0, dragging = false, moved = false;
 
-      this.track.addEventListener('pointerdown', (e) => {
-        if (e.pointerType === 'touch') return;
-        dragging = true; moved = false; startX = e.clientX;
-        this.track.style.cursor = 'grabbing';
+      track.style.cursor = 'grab';
+      track.style.touchAction = 'pan-y';
+      track.style.userSelect = 'none';
+
+      const onDown = (e) => {
+        dragging = true;
+        moved = false;
+        startX = e.clientX;
+        const firstCard = track.querySelector('[data-saas-item]');
+        cardWidth = (firstCard?.offsetWidth || 1) + 24;
+        baseOffset = -this.currentIndex * cardWidth;
+        track.style.transition = 'none';
+        track.style.cursor = 'grabbing';
         this.stopAutoPlay();
-      });
+        try { track.setPointerCapture(e.pointerId); } catch (_) {}
+      };
 
-      window.addEventListener('pointermove', (e) => {
-        if (dragging && Math.abs(e.clientX - startX) > 8) moved = true;
-      });
+      const onMove = (e) => {
+        if (!dragging) return;
+        const dx = e.clientX - startX;
+        if (Math.abs(dx) > 5) moved = true;
+        track.style.transform = `translateX(${baseOffset + dx}px)`;
+      };
 
-      window.addEventListener('pointerup', (e) => {
+      const onUp = (e) => {
         if (!dragging) return;
         dragging = false;
-        this.track.style.cursor = 'grab';
-        const diff = startX - e.clientX;
-        if (Math.abs(diff) > 40) { diff > 0 ? this.next() : this.prev(); }
+        track.style.transition = '';
+        track.style.cursor = 'grab';
+        const dx = (typeof e.clientX === 'number' ? e.clientX : startX) - startX;
+        let steps = Math.round(-dx / cardWidth);
+        if (steps === 0 && Math.abs(dx) > 40) steps = dx < 0 ? 1 : -1;
+        this.goTo(this.currentIndex + steps);
         this.startAutoPlay();
-      });
+        try { track.releasePointerCapture(e.pointerId); } catch (_) {}
+      };
 
-      this.track.addEventListener('click', (e) => {
+      track.addEventListener('pointerdown', onDown);
+      track.addEventListener('pointermove', onMove);
+      track.addEventListener('pointerup', onUp);
+      track.addEventListener('pointercancel', onUp);
+
+      track.addEventListener('click', (e) => {
         if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
       }, true);
 
-      this.track.addEventListener('dragstart', (e) => e.preventDefault());
+      track.addEventListener('dragstart', (e) => e.preventDefault());
     },
 
     buildDots() {

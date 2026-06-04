@@ -35,21 +35,8 @@
         dot.addEventListener('click', () => this.goTo(index));
       });
 
-      // Touch events
-      this.track.addEventListener('touchstart', (e) => {
-        this.touchStartX = e.touches[0].clientX;
-      });
-
-      this.track.addEventListener('touchend', (e) => {
-        const touchEndX = e.changedTouches[0].clientX;
-        const diff = this.touchStartX - touchEndX;
-        if (Math.abs(diff) > 40) {
-          diff > 0 ? this.next() : this.prev();
-        }
-      });
-
-      // Arrastar com o mouse (desktop)
-      this.enableMouseDrag();
+      // Arrastar/deslizar (mouse + toque) com drag contínuo e snap
+      this.enableDrag();
 
       // Pause autoplay on hover
       this.track.addEventListener('mouseenter', () => {
@@ -69,37 +56,59 @@
       });
     },
 
-    enableMouseDrag() {
-      let startX = 0, dragging = false, moved = false;
-      this.track.style.cursor = 'grab';
+    enableDrag() {
+      const track = this.track;
+      let startX = 0, baseOffset = 0, cardWidth = 0, dragging = false, moved = false;
 
-      this.track.addEventListener('pointerdown', (e) => {
-        if (e.pointerType === 'touch') return; // toque já tratado
-        dragging = true; moved = false; startX = e.clientX;
-        this.track.style.cursor = 'grabbing';
+      track.style.cursor = 'grab';
+      track.style.touchAction = 'pan-y';
+      track.style.userSelect = 'none'; // permite rolar a página na vertical
+
+      const onDown = (e) => {
+        dragging = true;
+        moved = false;
+        startX = e.clientX;
+        const firstCard = track.querySelector('[data-carousel-item]');
+        cardWidth = (firstCard?.offsetWidth || 1) + 24; // 24px de gap
+        baseOffset = -this.currentIndex * cardWidth;
+        track.style.transition = 'none';
+        track.style.cursor = 'grabbing';
         this.stopAutoPlay();
-      });
+        try { track.setPointerCapture(e.pointerId); } catch (_) {}
+      };
 
-      window.addEventListener('pointermove', (e) => {
-        if (dragging && Math.abs(e.clientX - startX) > 8) moved = true;
-      });
+      const onMove = (e) => {
+        if (!dragging) return;
+        const dx = e.clientX - startX;
+        if (Math.abs(dx) > 5) moved = true;
+        track.style.transform = `translateX(${baseOffset + dx}px)`; // segue o cursor/dedo
+      };
 
-      window.addEventListener('pointerup', (e) => {
+      const onUp = (e) => {
         if (!dragging) return;
         dragging = false;
-        this.track.style.cursor = 'grab';
-        const diff = startX - e.clientX;
-        if (Math.abs(diff) > 40) { diff > 0 ? this.next() : this.prev(); }
+        track.style.transition = '';
+        track.style.cursor = 'grab';
+        const dx = (typeof e.clientX === 'number' ? e.clientX : startX) - startX;
+        let steps = Math.round(-dx / cardWidth);
+        if (steps === 0 && Math.abs(dx) > 40) steps = dx < 0 ? 1 : -1; // arraste curto e rápido
+        this.goTo(this.currentIndex + steps); // encaixa no slide (com clamp)
         this.startAutoPlay();
-      });
+        try { track.releasePointerCapture(e.pointerId); } catch (_) {}
+      };
 
-      // Impede que um arraste dispare o clique em links/cards
-      this.track.addEventListener('click', (e) => {
+      track.addEventListener('pointerdown', onDown);
+      track.addEventListener('pointermove', onMove);
+      track.addEventListener('pointerup', onUp);
+      track.addEventListener('pointercancel', onUp);
+
+      // Um arraste não deve disparar o clique em links/cards
+      track.addEventListener('click', (e) => {
         if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
       }, true);
 
       // Evita o "ghost drag" nativo de imagens/links
-      this.track.addEventListener('dragstart', (e) => e.preventDefault());
+      track.addEventListener('dragstart', (e) => e.preventDefault());
     },
 
     buildDots() {
