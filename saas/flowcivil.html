@@ -105,16 +105,16 @@
           </p>
 
           <div class="product-hero__actions reveal reveal-delay-3">
-            <a href="#" class="btn-primary-lg" aria-label="Assinar FlowCivil">
-              Assinar agora
+            <a href="/saas/checkout?produto=flowcivil" class="btn-primary-lg" aria-label="Adquirir FlowCivil">
+              Adquirir SaaS
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
-            <a href="../index.html#contato" class="btn-secondary-lg">
-              Falar com a equipe
+            <a href="/cursos" class="btn-secondary-lg">
+              Ver curso grátis
             </a>
           </div>
 
-          <p class="product-hero__note reveal reveal-delay-4">// acesso imediato após confirmação da assinatura</p>
+          <p class="product-hero__note reveal reveal-delay-4">// licença de 1 ano + plano mensal · curso gratuito para aprender a usar</p>
 
         </div>
       </div>
@@ -226,6 +226,72 @@
       </div>
     </section>
 
+    <!-- Como funciona (telas do sistema) -->
+    <section class="section screens-section" id="como-funciona">
+      <div class="container">
+        <div class="features-header reveal">
+          <span class="section-line"></span>
+          <div class="section-label">Como funciona</div>
+          <h2 class="section-title">Cada tela, explicada.</h2>
+        </div>
+
+        <!-- TODO(P6): trocar assets/saas/flowcivil-preview.svg pelos screenshots reais em assets/saas/flowcivil/ -->
+        <div class="screen-row reveal">
+          <div class="screen-figure">
+            <img src="../assets/saas/flowcivil-preview.svg" alt="FlowCivil — Dashboard com todas as obras ativas" loading="lazy" width="800" height="400">
+          </div>
+          <div class="screen-content">
+            <span class="screen-content__num">01 — Dashboard</span>
+            <h3>Visão geral de todas as obras</h3>
+            <p>Logo ao entrar, você vê o andamento de cada obra ativa, a equipe em campo, os gastos acumulados e as pendências críticas — tudo numa tela só, em tempo real.</p>
+          </div>
+        </div>
+
+        <div class="screen-row screen-row--reverse reveal">
+          <div class="screen-figure">
+            <img src="../assets/saas/flowcivil-preview.svg" alt="FlowCivil — Tela de gestão de obra e cronograma" loading="lazy" width="800" height="400">
+          </div>
+          <div class="screen-content">
+            <span class="screen-content__num">02 — Obras &amp; cronograma</span>
+            <h3>Cada obra com etapas e responsáveis</h3>
+            <p>Abra uma obra e veja o cronograma com etapas, prazos e responsáveis. Atualize o progresso e toda a equipe enxerga a mesma informação, sem grupo de WhatsApp.</p>
+          </div>
+        </div>
+
+        <div class="screen-row reveal">
+          <div class="screen-figure">
+            <img src="../assets/saas/flowcivil-preview.svg" alt="FlowCivil — Tela de custos e materiais por obra" loading="lazy" width="800" height="400">
+          </div>
+          <div class="screen-content">
+            <span class="screen-content__num">03 — Custos &amp; materiais</span>
+            <h3>O dinheiro de cada obra sob controle</h3>
+            <p>Registre gastos, compare com o orçamento planejado e controle o consumo de materiais por obra. Alertas quando os custos começam a sair do previsto.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Planos (resumo) -->
+    <section class="section plans-summary">
+      <div class="container">
+        <div class="plans-summary__card reveal">
+          <div>
+            <div class="section-label">Como você adquire</div>
+            <h2 class="plans-summary__title">Licença de 1 ano + plano mensal que se ajusta ao seu uso.</h2>
+            <p class="plans-summary__text">
+              Você adquire a <strong>licença anual</strong> do FlowCivil (em promoção de lançamento) e escolhe um
+              <strong>plano mensal</strong> (Stream, Flow ou Titã). Cliente novo tem 3 meses no valor mínimo para testar.
+              O curso de uso é gratuito.
+            </p>
+          </div>
+          <div class="plans-summary__actions">
+            <a href="/saas/checkout?produto=flowcivil" class="btn-primary-lg">Ver planos e adquirir</a>
+            <a href="../index.html#planos" class="btn-secondary-lg">Comparar os planos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Para Quem -->
     <section class="section for-whom">
       <div class="container">
@@ -281,8 +347,8 @@
           </p>
 
           <div class="reveal reveal-delay-3">
-            <a href="#" class="btn-primary-lg" style="font-size:16px; padding: 16px 36px;" aria-label="Assinar FlowCivil agora">
-              Assinar FlowCivil
+            <a href="/saas/checkout?produto=flowcivil" class="btn-primary-lg" style="font-size:16px; padding: 16px 36px;" aria-label="Adquirir FlowCivil agora">
+              Adquirir FlowCivil
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
           </div>
@@ -332,9 +398,9 @@
 
         <div class="footer__section">
           <h4 class="footer__nav-title">Produto</h4>
-          <a href="#" class="footer__link">Funcionalidades</a>
-          <a href="../index.html#contato" class="footer__link">Suporte</a>
-          <a href="#" class="footer__link">Assinar agora</a>
+          <a href="#como-funciona" class="footer__link">Como funciona</a>
+          <a href="/cursos" class="footer__link">Curso grátis</a>
+          <a href="/saas/checkout?produto=flowcivil" class="footer__link">Adquirir FlowCivil</a>
         </div>
 
         <div class="footer__section">
