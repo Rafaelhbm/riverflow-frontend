@@ -152,3 +152,49 @@ body.admin {
 .comment__head { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; margin-bottom: 4px; }
 .comment__text { margin: 0 0 8px; font-size: 0.92rem; color: var(--white-foam); line-height: 1.5; }
 .comment__actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ─── Cobrança por uso (dashboard P9/S8) ─────────────────── */
+.field--inline { flex-direction: row; align-items: center; gap: 8px; }
+.field--inline > span { white-space: nowrap; }
+.field--inline input {
+  background: var(--card-bg); border: 1px solid var(--border); color: var(--white-foam);
+  border-radius: var(--radius-md); padding: 8px 10px; font: inherit; color-scheme: dark;
+}
+
+.billing-note { color: var(--slate); font-size: 0.92rem; margin: 0 0 20px; line-height: 1.5; }
+
+.billing-cards {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px; margin-bottom: 22px;
+}
+.billing-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.billing-card__label { color: var(--slate); font-size: 0.82rem; }
+.billing-card__value { font-size: 1.4rem; font-weight: 700; color: var(--white-foam); }
+
+.billing-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); }
+.billing-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 760px; }
+.billing-table th, .billing-table td {
+  padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top;
+}
+.billing-table thead th {
+  color: var(--slate); font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em;
+  background: var(--footer-bg); position: sticky; top: 0;
+}
+.billing-table tbody tr:last-child td { border-bottom: none; }
+.billing-table .num { text-align: right; font-family: var(--font-mono); white-space: nowrap; }
+.billing-table .is-negative { color: #FCA5A5; }
+.billing-table .is-positive { color: #86EFAC; }
+
+.billing-usage { max-width: 260px; }
+.billing-metric { color: var(--slate); font-family: var(--font-mono); font-size: 0.78rem; margin-right: 6px; }
+.billing-metric strong { color: var(--white-foam); }
+.billing-dim { color: var(--dim); font-size: 0.82rem; }
+.billing-tag {
+  font-size: 0.72rem; font-family: var(--font-mono); padding: 2px 7px; border-radius: 999px;
+  background: rgba(30,136,229,0.14); color: var(--current);
+}
+.billing-tag--ok { background: rgba(52,211,153,0.15); color: #86EFAC; }

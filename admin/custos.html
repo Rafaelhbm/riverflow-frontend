@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/admin.css">
+
+  <title>Painel — Custos · RiverFlow</title>
+</head>
+<body class="admin">
+
+  <header class="admin-topbar">
+    <div class="admin-topbar__inner">
+      <a href="../index.html" class="admin-brand">River<span>Flow</span> <em>admin</em></a>
+      <nav class="admin-topbar__nav">
+        <a href="index.html">Cursos</a>
+        <a href="custos.html" class="is-active">Custos</a>
+        <a href="../cursos" target="_blank" rel="noopener">Ver catálogo &nearr;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="admin-container">
+
+      <div class="admin-head">
+        <h1>Cobrança por uso</h1>
+        <div class="admin-head__actions">
+          <label class="field field--inline">
+            <span>Período</span>
+            <input type="month" data-period>
+          </label>
+          <button class="btn" data-recalc type="button">Recalcular</button>
+        </div>
+      </div>
+
+      <p class="billing-note">
+        O sistema <strong>recomenda</strong> a mensalidade dentro da faixa do plano, a partir do uso.
+        Nada é cobrado sem você clicar em <strong>Aplicar</strong>.
+      </p>
+
+      <!-- Cards de topo -->
+      <div class="billing-cards" data-cards hidden>
+        <div class="billing-card">
+          <span class="billing-card__label">Custo total</span>
+          <span class="billing-card__value" data-total-cost>—</span>
+        </div>
+        <div class="billing-card">
+          <span class="billing-card__label">Receita recorrente</span>
+          <span class="billing-card__value" data-total-revenue>—</span>
+        </div>
+        <div class="billing-card">
+          <span class="billing-card__label">Margem total</span>
+          <span class="billing-card__value" data-total-margin>—</span>
+        </div>
+        <div class="billing-card">
+          <span class="billing-card__label">Abaixo do custo</span>
+          <span class="billing-card__value" data-below-count>—</span>
+        </div>
+      </div>
+
+      <p class="admin-feedback" data-feedback role="status" aria-live="polite"></p>
+      <p class="admin-state" data-state role="status" aria-live="polite">Carregando...</p>
+
+      <div class="billing-table-wrap" data-table-wrap hidden>
+        <table class="billing-table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Plano</th>
+              <th>Uso do período</th>
+              <th class="num">Custo</th>
+              <th class="num">Valor atual</th>
+              <th class="num">Recomendado</th>
+              <th class="num">Margem</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody data-rows></tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/session-guard.js"></script>
+  <script src="../js/admin-api.js"></script>
+  <script defer src="../js/admin-custos.js"></script>
+
+</body>
+</html>
