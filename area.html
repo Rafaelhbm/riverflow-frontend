@@ -39,13 +39,39 @@
     <p class="checkout-state" data-state role="status" aria-live="polite">Carregando...</p>
 
     <div data-area hidden>
-      <!-- Licenças (SaaS) -->
+      <!-- Meus cursos -->
       <section class="account-section">
-        <h2 class="account-section__title">Seus sistemas</h2>
-        <div class="account-grid" data-licenses></div>
-        <p class="account-empty" data-licenses-empty hidden>
-          Você ainda não adquiriu nenhum sistema.
+        <h2 class="account-section__title">Meus cursos</h2>
+        <div class="account-grid" data-courses></div>
+        <p class="account-empty" data-courses-empty hidden>
+          Você ainda não se matriculou em nenhum curso.
+          <a href="cursos">Ver cursos disponíveis &rarr;</a>
+        </p>
+      </section>
+
+      <!-- Sistemas ativos -->
+      <section class="account-section">
+        <h2 class="account-section__title">Sistemas ativos</h2>
+        <div class="account-grid" data-licenses-active></div>
+        <p class="account-empty" data-licenses-active-empty hidden>
+          Você ainda não tem nenhum sistema ativo.
           <a href="index.html#saas">Conheça nossos SaaS &rarr;</a>
+        </p>
+      </section>
+
+      <!-- Sistemas vencidos -->
+      <section class="account-section" data-expired-section hidden>
+        <h2 class="account-section__title">Sistemas vencidos</h2>
+        <div class="account-grid" data-licenses-expired></div>
+      </section>
+
+      <!-- Biblioteca de conteúdos (PDFs dos cursos adquiridos) -->
+      <section class="account-section">
+        <h2 class="account-section__title">Biblioteca de conteúdos</h2>
+        <p class="account-muted">Materiais e PDFs dos cursos em que você está matriculado.</p>
+        <div data-library></div>
+        <p class="account-empty" data-library-empty hidden>
+          Nenhum material disponível ainda. Os conteúdos aparecem aqui conforme seus cursos.
         </p>
       </section>
 
@@ -57,13 +83,6 @@
           Nenhum plano mensal ativo.
           <a href="saas/planos">Escolher um plano &rarr;</a>
         </p>
-      </section>
-
-      <!-- Cursos -->
-      <section class="account-section">
-        <h2 class="account-section__title">Cursos</h2>
-        <p class="account-muted">Como cliente, você tem acesso gratuito aos cursos dos sistemas.</p>
-        <a class="btn" href="cursos" style="max-width:260px;">Ir para os cursos</a>
       </section>
     </div>
   </main>

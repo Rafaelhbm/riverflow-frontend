@@ -37,6 +37,7 @@
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
   }
+  const esc = escapeHtml;
 
   function brl(centavos) {
     return (Number(centavos || 0) / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -96,23 +97,124 @@
       </article>`;
   }
 
+  function wireAccessButtons(scope) {
+    // "Acessar SaaS": ainda não há app externo conectado — leva ao contato.
+    // Mantemos o gesto explícito para quando a URL do SaaS existir (go-live).
+    scope.querySelectorAll('[data-access]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        window.location.assign('mailto:contato@riverflowdev.com?subject=Acesso%20ao%20sistema');
+      });
+    });
+  }
+
   function renderLicenses(licenses) {
-    const grid = $('[data-licenses]');
-    const empty = $('[data-licenses-empty]');
-    if (!licenses || !licenses.length) {
+    const list = licenses || [];
+    const ativos = list.filter((l) => l.ativa);
+    const vencidos = list.filter((l) => !l.ativa);
+
+    const gridA = $('[data-licenses-active]');
+    const emptyA = $('[data-licenses-active-empty]');
+    gridA.innerHTML = ativos.map(licenseCardHtml).join('');
+    emptyA.hidden = ativos.length > 0;
+    wireAccessButtons(gridA);
+
+    const section = $('[data-expired-section]');
+    const gridE = $('[data-licenses-expired]');
+    if (vencidos.length) {
+      gridE.innerHTML = vencidos.map(licenseCardHtml).join('');
+      section.hidden = false;
+    } else {
+      gridE.innerHTML = '';
+      section.hidden = true;
+    }
+  }
+
+  function courseCardHtml(c) {
+    const nome = esc(c.titulo);
+    const cover = c.capa_url
+      ? `<img class="account-course__cover" src="${esc(c.capa_url)}" alt="" loading="lazy">`
+      : `<div class="account-course__cover account-course__cover--ph" aria-hidden="true"></div>`;
+    const badge = c.saas_id ? `<span class="account-course__badge">${esc(c.saas_id)}</span>` : '';
+    return `
+      <a class="account-course" href="${esc(c.url || '#')}">
+        <div class="account-course__thumb">${cover}${badge}</div>
+        <div class="account-course__body">
+          <span class="account-course__title">${nome}</span>
+          <span class="account-course__cta">Continuar assistindo &rarr;</span>
+        </div>
+      </a>`;
+  }
+
+  function renderCourses(courses) {
+    const grid = $('[data-courses]');
+    const empty = $('[data-courses-empty]');
+    if (!courses || !courses.length) {
       grid.innerHTML = '';
       empty.hidden = false;
       return;
     }
     empty.hidden = true;
-    grid.innerHTML = licenses.map(licenseCardHtml).join('');
-    // "Acessar SaaS": ainda não há app externo conectado — leva à área/contato.
-    // Mantemos o gesto explícito para quando a URL do SaaS existir (S0/go-live).
-    grid.querySelectorAll('[data-access]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        window.location.assign('mailto:contato@riverflowdev.com?subject=Acesso%20ao%20sistema');
-      });
+    grid.innerHTML = courses.map(courseCardHtml).join('');
+  }
+
+  function fmtBytes(bytes) {
+    const n = Number(bytes || 0);
+    if (!n) return '';
+    if (n < 1024 * 1024) return `${Math.max(1, Math.round(n / 1024))} KB`;
+    return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+  }
+
+  function libraryGroupHtml(group) {
+    const titulo = esc(group.titulo);
+    const items = group.materials.map((m) => {
+      const meta = [esc(m.aula), fmtBytes(m.tamanho_bytes)].filter(Boolean).join(' · ');
+      return `
+        <li class="library-item">
+          <div class="library-item__info">
+            <span class="library-item__name">${esc(m.nome)}</span>
+            ${meta ? `<span class="library-item__meta">${meta}</span>` : ''}
+          </div>
+          <button class="btn btn--sm" type="button" data-material="${esc(m.id)}">Baixar</button>
+        </li>`;
+    }).join('');
+    return `
+      <div class="library-group">
+        <h3 class="library-group__title">${titulo}</h3>
+        <ul class="library-list">${items}</ul>
+      </div>`;
+  }
+
+  function renderLibrary(library) {
+    const wrap = $('[data-library]');
+    const empty = $('[data-library-empty]');
+    if (!library || !library.length) {
+      wrap.innerHTML = '';
+      empty.hidden = false;
+      return;
+    }
+    empty.hidden = true;
+    wrap.innerHTML = library.map(libraryGroupHtml).join('');
+    wrap.querySelectorAll('[data-material]').forEach((btn) => {
+      btn.addEventListener('click', () => downloadMaterial(btn));
     });
+  }
+
+  // Baixa via signed URL (1h), reusando a rota do player (checa matrícula).
+  async function downloadMaterial(btn) {
+    const id = btn.dataset.material;
+    const original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Gerando...';
+    try {
+      const { url } = await api(`/api/courses/materials/${encodeURIComponent(id)}/url`);
+      window.open(url, '_blank', 'noopener');
+    } catch (_) {
+      btn.textContent = 'Falhou';
+      setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1500);
+      return;
+    }
+    btn.textContent = original;
+    btn.disabled = false;
   }
 
   function renderSubscription(sub) {
@@ -148,9 +250,15 @@
   async function init(session) {
     greet(session);
     setState('Carregando...');
-    let data;
+    let billing, coursesData, libraryData;
     try {
-      data = await api('/api/me/billing');
+      // Cobrança, cursos e biblioteca em paralelo; se cursos/biblioteca falharem,
+      // a área ainda abre (só billing é crítico para a sessão).
+      [billing, coursesData, libraryData] = await Promise.all([
+        api('/api/me/billing'),
+        api('/api/me/courses').catch(() => ({ courses: [] })),
+        api('/api/me/library').catch(() => ({ library: [] })),
+      ]);
     } catch (err) {
       setState(
         err.status === 401
@@ -160,8 +268,10 @@
       );
       return;
     }
-    renderLicenses(data.licenses);
-    renderSubscription(data.subscription);
+    renderCourses(coursesData.courses);
+    renderLibrary(libraryData.library);
+    renderLicenses(billing.licenses);
+    renderSubscription(billing.subscription);
     setState('');
     areaEl.hidden = false;
   }

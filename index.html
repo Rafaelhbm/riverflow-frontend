@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/home-courses.css">
 
     <title>RiverFlow — Software que flui.</title>
 </head>
@@ -72,6 +73,8 @@
                 <a href="#valores" class="navbar__link">Valores</a>
                 <a href="#portfolio" class="navbar__link">Projetos B2B</a>
                 <a href="#saas" class="navbar__link">Nossos SaaS</a>
+                <a href="#cursos" class="navbar__link">Cursos</a>
+                <a href="/area" class="navbar__link" data-area-link>Área de Usuários</a>
                 <a href="#contato" class="navbar__cta">Fale conosco</a>
             </div>
 
@@ -87,6 +90,8 @@
             <a href="#valores" class="nav-drawer__link">Valores</a>
             <a href="#portfolio" class="nav-drawer__link">Projetos B2B</a>
             <a href="#saas" class="nav-drawer__link">Nossos SaaS</a>
+            <a href="#cursos" class="nav-drawer__link">Cursos</a>
+            <a href="/area" class="nav-drawer__link" data-area-link>Área de Usuários</a>
             <a href="#contato" class="nav-drawer__cta">Fale conosco</a>
         </div>
         <div class="nav-overlay"></div>
@@ -398,6 +403,21 @@
             </div>
         </section>
 
+        <!-- Courses Section -->
+        <section class="section courses" id="cursos">
+            <div class="container">
+                <div class="courses__header reveal">
+                    <div class="section-label">// aprenda a fluir</div>
+                    <h2 class="section-title">Cursos dos nossos sistemas.</h2>
+                    <p class="courses__subtitle">Aprenda a tirar o máximo de cada Flow com cursos gratuitos.
+                       Crie sua conta para se matricular e assistir quando quiser.</p>
+                </div>
+
+                <p class="courses__state reveal" data-courses-state role="status" aria-live="polite">Carregando cursos...</p>
+                <div class="courses-grid reveal" data-courses-grid></div>
+            </div>
+        </section>
+
         <!-- Contact Section -->
         <section class="section contact" id="contato">
             <div class="container">
@@ -564,6 +584,9 @@
     </footer>
 
     <!-- JavaScript Loading with defer -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/auth.js"></script>
+    <script defer src="js/home-courses.js"></script>
     <script defer src="js/navbar.js"></script>
     <script defer src="js/carousel.js"></script>
     <script defer src="js/saas-carousel.js"></script>

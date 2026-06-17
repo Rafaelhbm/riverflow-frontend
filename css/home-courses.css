@@ -1,0 +1,78 @@
+/* ============================================================
+   RiverFlow — Seção de cursos na home (#cursos)
+   Reaproveita os tokens globais (variables.css) e o ritmo das
+   demais seções (.section / .container / .section-title).
+   ============================================================ */
+
+.courses__header { max-width: 680px; margin-bottom: 36px; }
+.courses__subtitle { color: var(--slate); line-height: 1.6; margin-top: 12px; }
+.courses__state { color: var(--slate); padding: 8px 0 24px; }
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+
+.home-course {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+.home-course:hover { border-color: var(--current); transform: translateY(-3px); }
+
+.home-course__thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+.home-course__cover { width: 100%; height: 100%; object-fit: cover; display: block; }
+.home-course__cover--ph {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #0D1E35, #14233a);
+  color: var(--white-foam); font-size: 1.3rem; font-weight: 700; letter-spacing: 0.5px;
+}
+.home-course__cover--ph b { color: var(--current); font-weight: 700; }
+
+.home-course__badge {
+  position: absolute; top: 12px; left: 12px;
+  background: rgba(10, 22, 40, 0.78); color: var(--white-foam);
+  font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.05em; padding: 4px 10px; border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.home-course__body { padding: 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.home-course__title { font-size: 1.2rem; font-weight: 600; color: var(--white-foam); margin: 0; }
+.home-course__about { margin: 0; font-size: 0.85rem; color: var(--slate); }
+.home-course__about strong { color: var(--current); font-weight: 600; }
+.home-course__desc { color: var(--slate); font-size: 0.92rem; line-height: 1.55; margin: 0; }
+
+/* "O que você aprende" — informação completa do curso */
+.home-course__learn { margin: 2px 0 4px; }
+.home-course__learn-label {
+  display: block; font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--dim); margin-bottom: 8px;
+}
+.home-course__learn ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.home-course__learn li {
+  position: relative; padding-left: 22px; color: var(--slate); font-size: 0.9rem; line-height: 1.45;
+}
+.home-course__learn li::before {
+  content: "✓"; position: absolute; left: 0; top: 0; color: #34D399; font-weight: 700;
+}
+
+.home-course__btn {
+  margin-top: auto; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--flow-blue); border: 1px solid var(--flow-blue); color: #fff;
+  font: inherit; font-weight: 600; font-size: 0.95rem; padding: 12px 18px;
+  border-radius: var(--radius-md); cursor: pointer; width: 100%;
+  transition: background var(--transition-fast), gap var(--transition-fast);
+}
+.home-course__btn:hover { background: var(--current); border-color: var(--current); gap: 12px; }
+
+@media (max-width: 560px) {
+  .courses-grid { grid-template-columns: 1fr; }
+}
