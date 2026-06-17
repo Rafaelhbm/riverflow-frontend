@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Conteúdo de aluno matriculado: fora dos índices de busca. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/player.css">
+
+  <title>Curso · RiverFlow</title>
+</head>
+<body class="player-body">
+
+  <header class="player-topbar">
+    <div class="player-topbar__inner">
+      <a href="cursos" class="player-brand" aria-label="RiverFlow — Voltar aos cursos">
+        River<span>Flow</span>
+      </a>
+      <nav class="player-topbar__nav">
+        <a href="cursos">&larr; Todos os cursos</a>
+        <button class="player-link-btn" data-logout type="button">Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="player-main">
+
+    <!-- Estado global (carregando / erro / não matriculado) -->
+    <p class="player-state" data-state role="status" aria-live="polite">Carregando curso...</p>
+
+    <div class="player-layout" data-player hidden>
+
+      <!-- Coluna principal: vídeo + detalhes da aula -->
+      <section class="player-stage">
+        <div class="player-video" data-video-wrap>
+          <video class="player-video__el" data-video controls playsinline preload="metadata"></video>
+          <p class="player-video__msg" data-video-msg hidden></p>
+        </div>
+
+        <div class="player-lesson">
+          <div class="player-lesson__head">
+            <div>
+              <p class="player-lesson__module" data-lesson-module></p>
+              <h1 class="player-lesson__title" data-lesson-title>Selecione uma aula</h1>
+            </div>
+            <button class="btn btn--complete" data-complete type="button" hidden>
+              <span data-complete-label>Marcar como concluída</span>
+            </button>
+          </div>
+
+          <!-- Abas -->
+          <div class="player-tabs" role="tablist">
+            <button class="player-tab is-active" data-tab="desc" role="tab">Descrição</button>
+            <button class="player-tab" data-tab="mat" role="tab">Materiais <span class="player-tab__count" data-mat-count hidden></span></button>
+            <button class="player-tab" data-tab="comments" role="tab">Comentários</button>
+          </div>
+
+          <!-- Painel: descrição -->
+          <div class="player-panel is-active" data-panel="desc">
+            <p class="player-desc" data-lesson-desc></p>
+          </div>
+
+          <!-- Painel: materiais -->
+          <div class="player-panel" data-panel="mat">
+            <ul class="player-materials" data-materials></ul>
+            <p class="player-empty" data-materials-empty hidden>Esta aula não tem materiais.</p>
+          </div>
+
+          <!-- Painel: comentários -->
+          <div class="player-panel" data-panel="comments">
+            <form class="comment-form" data-comment-form>
+              <textarea data-comment-input rows="2" maxlength="4000" placeholder="Escreva um comentário..."></textarea>
+              <div class="comment-form__actions">
+                <p class="comment-form__feedback" data-comment-feedback role="status" aria-live="polite"></p>
+                <button type="submit" class="btn btn--primary btn--sm">Comentar</button>
+              </div>
+            </form>
+            <p class="player-state player-state--inline" data-comments-state></p>
+            <ul class="comment-list" data-comments></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Playlist lateral -->
+      <aside class="player-playlist">
+        <div class="player-playlist__head">
+          <h2 data-course-title>Curso</h2>
+          <p class="player-progress"><span data-progress-done>0</span>/<span data-progress-total>0</span> aulas concluídas</p>
+          <div class="player-progress__bar"><span data-progress-fill></span></div>
+        </div>
+        <div class="player-playlist__body" data-playlist></div>
+      </aside>
+
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/session-guard.js"></script>
+  <script defer src="js/curso.js"></script>
+
+</body>
+</html>

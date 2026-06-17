@@ -6,6 +6,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://riverflow-api.onrender.com/api/:path*"
+    },
+    {
+      "source": "/curso/:slug",
+      "destination": "/curso.html"
     }
   ],
   "headers": [
@@ -14,7 +18,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://challenges.cloudflare.com https://rgyoahefdsukuiltqwvu.supabase.co wss://rgyoahefdsukuiltqwvu.supabase.co; frame-src https://challenges.cloudflare.com https://inovamix.ind.br https://www.inovamix.ind.br; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' blob: https://rgyoahefdsukuiltqwvu.supabase.co; connect-src 'self' https://challenges.cloudflare.com https://rgyoahefdsukuiltqwvu.supabase.co wss://rgyoahefdsukuiltqwvu.supabase.co; frame-src https://challenges.cloudflare.com https://inovamix.ind.br https://www.inovamix.ind.br; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
         },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "DENY" },
