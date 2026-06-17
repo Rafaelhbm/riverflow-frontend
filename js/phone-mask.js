@@ -2,25 +2,24 @@
 
 (function() {
   const phoneMask = {
-    input: null,
-
     init() {
-      this.input = document.getElementById('inputTel');
-      if (!this.input) return;
-
-      this.input.addEventListener('input', () => this.handleInput());
+      // Suporta o campo legado do formulário de contato (#inputTel) e qualquer
+      // outro campo de telefone marcado com [data-phone-mask] (ex.: cadastro).
+      const inputs = document.querySelectorAll('#inputTel, [data-phone-mask]');
+      inputs.forEach((input) => {
+        input.addEventListener('input', () => this.handleInput(input));
+      });
     },
 
-    handleInput() {
+    handleInput(input) {
       // Remove all non-digit characters
-      let digits = this.input.value.replace(/\D/g, '');
+      let digits = input.value.replace(/\D/g, '');
 
       // Limit to 11 digits
       digits = digits.slice(0, 11);
 
       // Apply mask based on digit count
-      const masked = this.applyMask(digits);
-      this.input.value = masked;
+      input.value = this.applyMask(digits);
     },
 
     applyMask(digits) {
