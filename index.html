@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="css/values.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/saas.css">
+    <link rel="stylesheet" href="css/planos.css">
     <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/animations.css">
@@ -72,6 +73,7 @@
                 <a href="#valores" class="navbar__link">Valores</a>
                 <a href="#portfolio" class="navbar__link">Projetos B2B</a>
                 <a href="#saas" class="navbar__link">Nossos SaaS</a>
+                <a href="#planos" class="navbar__link">Planos</a>
                 <a href="#contato" class="navbar__cta">Fale conosco</a>
             </div>
 
@@ -87,6 +89,7 @@
             <a href="#valores" class="nav-drawer__link">Valores</a>
             <a href="#portfolio" class="nav-drawer__link">Projetos B2B</a>
             <a href="#saas" class="nav-drawer__link">Nossos SaaS</a>
+            <a href="#planos" class="nav-drawer__link">Planos</a>
             <a href="#contato" class="nav-drawer__cta">Fale conosco</a>
         </div>
         <div class="nav-overlay"></div>
@@ -398,6 +401,77 @@
             </div>
         </section>
 
+        <!-- Planos Section -->
+        <section class="section planos" id="planos">
+            <div class="container">
+                <div class="section-label reveal">// planos &amp; assinatura</div>
+                <h2 class="section-title reveal">Escolha o plano que acompanha o seu ritmo.</h2>
+                <p class="planos__subtitle reveal">
+                    A mensalidade se ajusta ao uso dentro da faixa do plano. Cliente novo na RiverFlow
+                    tem <strong>3 meses no valor mínimo</strong> para testar antes do valor se ajustar.
+                </p>
+
+                <!-- Valores vêm de GET /api/pricing (P7). Enquanto não existir, ficam como placeholder "—".
+                     Nenhum valor monetário é cravado no HTML — js/pricing.js preenche [data-plan-range]. -->
+                <div class="planos__grid" data-pricing>
+
+                    <article class="plano-card reveal" data-plan="stream">
+                        <header class="plano-card__head">
+                            <h3 class="plano-card__name">Stream</h3>
+                            <p class="plano-card__for">Para quem está começando ou validando a operação.</p>
+                            <p class="plano-card__range" data-plan-range="stream">—</p>
+                            <span class="plano-card__range-note">por mês, dentro da faixa</span>
+                        </header>
+                        <ul class="plano-card__list">
+                            <li>Custos base de banco de dados + ferramentas</li>
+                            <li>Acesso exclusivo à pré-venda dos flows</li>
+                            <li>Atendimento e suporte via WhatsApp</li>
+                        </ul>
+                        <a href="#saas" class="plano-card__cta">Adquirir um SaaS</a>
+                    </article>
+
+                    <article class="plano-card plano-card--featured reveal reveal-delay-1" data-plan="flow">
+                        <span class="plano-card__badge">Mais escolhido</span>
+                        <header class="plano-card__head">
+                            <h3 class="plano-card__name">Flow</h3>
+                            <p class="plano-card__for">Para quem já opera e quer escalar com folga.</p>
+                            <p class="plano-card__range" data-plan-range="flow">—</p>
+                            <span class="plano-card__range-note">por mês, dentro da faixa</span>
+                        </header>
+                        <ul class="plano-card__list">
+                            <li>Tudo do Stream</li>
+                            <li>Relatórios aprofundados</li>
+                            <li>Suporte dedicado</li>
+                            <li>Mais limites de dados</li>
+                            <li>Tempo de atendimento mais rápido</li>
+                            <li>Acesso prioritário a integrações personalizadas</li>
+                        </ul>
+                        <a href="#saas" class="plano-card__cta plano-card__cta--primary">Adquirir um SaaS</a>
+                    </article>
+
+                    <article class="plano-card reveal reveal-delay-2" data-plan="tita">
+                        <header class="plano-card__head">
+                            <h3 class="plano-card__name">Titã</h3>
+                            <p class="plano-card__for">Para operação crítica e alto volume.</p>
+                            <p class="plano-card__range" data-plan-range="tita">—</p>
+                            <span class="plano-card__range-note">por mês, dentro da faixa</span>
+                        </header>
+                        <ul class="plano-card__list">
+                            <li>Tudo do Flow</li>
+                            <li>Limites massivos de dados</li>
+                            <li>Suporte prioritário 24/7</li>
+                            <li>Gerência de conta pessoal</li>
+                            <li>SLA</li>
+                        </ul>
+                        <a href="#saas" class="plano-card__cta">Adquirir um SaaS</a>
+                    </article>
+
+                </div>
+
+                <p class="planos__tagline reveal">Software que flui.</p>
+            </div>
+        </section>
+
         <!-- Contact Section -->
         <section class="section contact" id="contato">
             <div class="container">
@@ -571,5 +645,6 @@
     <script defer src="js/phone-mask.js"></script>
     <script defer src="js/contact-form.js"></script>
     <script defer src="js/hero-canvas.js"></script>
+    <script defer src="js/pricing.js"></script>
 </body>
 </html>
