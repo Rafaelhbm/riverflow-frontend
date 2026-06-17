@@ -1,0 +1,47 @@
+/* ============================================================
+   RiverFlow — Área do cliente (S7): area.html
+   Complementa checkout.css (topbar, btn, checkout-head reaproveitados).
+   ============================================================ */
+
+.account-section { margin: 0 auto 40px; max-width: 880px; }
+.account-section__title {
+  font-size: 1.15rem; font-weight: 600; color: var(--white-foam);
+  margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.account-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.account-card--wide { max-width: 420px; }
+.account-card__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.account-card__name { font-size: 1.15rem; font-weight: 600; color: var(--white-foam); }
+.account-card__meta { color: var(--slate); font-size: 0.88rem; }
+.account-card__meta strong { color: var(--white-foam); font-weight: 600; }
+.account-card__price { font-size: 1.6rem; font-weight: 700; color: var(--white-foam); }
+.account-card__price small { font-size: 0.9rem; color: var(--slate); font-weight: 400; }
+.account-card__trial { color: #34D399; font-size: 0.85rem; }
+.account-card .btn { margin-top: 8px; }
+
+.account-badge {
+  font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+  text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap;
+}
+.account-badge.is-active { background: rgba(52, 211, 153, 0.15); color: #34D399; }
+.account-badge.is-inactive { background: rgba(252, 165, 165, 0.12); color: #FCA5A5; }
+
+.account-empty { color: var(--slate); line-height: 1.6; }
+.account-empty a { color: var(--current); text-decoration: none; }
+.account-empty a:hover { text-decoration: underline; }
+.account-muted { color: var(--slate); margin-bottom: 16px; line-height: 1.6; }

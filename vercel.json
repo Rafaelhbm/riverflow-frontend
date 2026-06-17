@@ -10,6 +10,10 @@
     {
       "source": "/curso/:slug",
       "destination": "/curso.html"
+    },
+    {
+      "source": "/area",
+      "destination": "/area.html"
     }
   ],
   "headers": [

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/checkout.css">
+  <link rel="stylesheet" href="css/area.css">
+
+  <title>Minha conta · RiverFlow</title>
+</head>
+<body class="checkout-body">
+
+  <header class="checkout-topbar">
+    <div class="checkout-topbar__inner">
+      <a href="index.html" class="checkout-brand">River<span>Flow</span></a>
+      <nav class="checkout-topbar__nav">
+        <a href="cursos">Cursos</a>
+        <button class="checkout-link-btn" data-logout type="button" hidden>Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="checkout-main">
+    <div class="checkout-head">
+      <span class="checkout-head__eyebrow">// Minha conta</span>
+      <h1 data-greeting>Sua área</h1>
+      <p>Acompanhe sua licença, sua assinatura mensal e o acesso aos seus sistemas.</p>
+    </div>
+
+    <p class="checkout-state" data-state role="status" aria-live="polite">Carregando...</p>
+
+    <div data-area hidden>
+      <!-- Licenças (SaaS) -->
+      <section class="account-section">
+        <h2 class="account-section__title">Seus sistemas</h2>
+        <div class="account-grid" data-licenses></div>
+        <p class="account-empty" data-licenses-empty hidden>
+          Você ainda não adquiriu nenhum sistema.
+          <a href="index.html#saas">Conheça nossos SaaS &rarr;</a>
+        </p>
+      </section>
+
+      <!-- Assinatura mensal -->
+      <section class="account-section">
+        <h2 class="account-section__title">Assinatura mensal</h2>
+        <div data-subscription></div>
+        <p class="account-empty" data-subscription-empty hidden>
+          Nenhum plano mensal ativo.
+          <a href="saas/planos">Escolher um plano &rarr;</a>
+        </p>
+      </section>
+
+      <!-- Cursos -->
+      <section class="account-section">
+        <h2 class="account-section__title">Cursos</h2>
+        <p class="account-muted">Como cliente, você tem acesso gratuito aos cursos dos sistemas.</p>
+        <a class="btn" href="cursos" style="max-width:260px;">Ir para os cursos</a>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/session-guard.js"></script>
+  <script defer src="js/area.js"></script>
+
+</body>
+</html>
