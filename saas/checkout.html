@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/checkout.css">
+
+  <title>Adquirir SaaS · RiverFlow</title>
+</head>
+<body class="checkout-body">
+
+  <header class="checkout-topbar">
+    <div class="checkout-topbar__inner">
+      <a href="../index.html" class="checkout-brand">River<span>Flow</span></a>
+      <nav class="checkout-topbar__nav">
+        <a href="../index.html#saas">&larr; Nossos SaaS</a>
+        <button class="checkout-link-btn" data-logout type="button" hidden>Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="checkout-main">
+    <p class="checkout-state" data-state role="status" aria-live="polite">Carregando...</p>
+
+    <div data-checkout hidden>
+      <div class="checkout-head">
+        <span class="checkout-head__eyebrow">// Licença anual</span>
+        <h1 data-flow-title>Adquirir SaaS</h1>
+        <p>Comece com a licença de uso por 12 meses. Logo após o pagamento você escolhe
+           o plano mensal — com <strong>3 meses no valor de teste</strong> para conhecer o sistema.</p>
+      </div>
+
+      <div class="license-card">
+        <div class="license-card__top">
+          <span class="license-card__name" data-flow-name>—</span>
+          <span class="promo-badge" data-promo>-50%</span>
+        </div>
+
+        <div class="license-card__price">
+          <span class="license-card__price-old" data-price-old></span>
+          <div class="license-card__price-now"><span data-price-now>—</span> <small>/ 12 meses</small></div>
+          <p class="license-card__price-note" data-price-note></p>
+        </div>
+
+        <ul class="license-card__benefits" data-benefits></ul>
+
+        <div class="pay-modes" role="radiogroup" aria-label="Forma de pagamento">
+          <label class="pay-mode is-selected" data-mode-option="avista">
+            <input type="radio" name="mode" value="avista" checked>
+            <span class="pay-mode__body">
+              <span class="pay-mode__title">À vista <span data-avista-val></span></span>
+              <span class="pay-mode__desc">Pague de uma vez com desconto adicional.</span>
+            </span>
+          </label>
+          <label class="pay-mode" data-mode-option="parcelado">
+            <input type="radio" name="mode" value="parcelado">
+            <span class="pay-mode__body">
+              <span class="pay-mode__title">Parcelado <span data-parcelado-val></span></span>
+              <span class="pay-mode__desc" data-parcelado-desc>Em até 12x no cartão.</span>
+            </span>
+          </label>
+        </div>
+
+        <button class="btn btn--primary" data-pay type="button">Ir para o pagamento</button>
+        <p class="checkout-feedback" data-feedback role="status" aria-live="polite"></p>
+        <p class="checkout-secure">🔒 Pagamento processado com segurança pela Stripe. A RiverFlow não armazena dados do cartão.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/session-guard.js"></script>
+  <script defer src="../js/checkout.js"></script>
+
+</body>
+</html>

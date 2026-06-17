@@ -1,0 +1,150 @@
+/* ============================================================
+   RiverFlow — Checkout (P7): licença anual + planos mensais
+   Cobre saas/checkout.html, saas/planos.html, saas/sucesso.html.
+   ============================================================ */
+
+.checkout-body {
+  background: var(--deep-river);
+  color: var(--white-foam);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+/* ─── Topbar ─────────────────────────────────────────────── */
+.checkout-topbar {
+  background: var(--footer-bg);
+  border-bottom: 1px solid var(--border);
+}
+.checkout-topbar__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.checkout-brand { font-weight: 600; font-size: 1.1rem; color: var(--white-foam); text-decoration: none; }
+.checkout-brand span { color: var(--current); }
+.checkout-topbar__nav { display: flex; gap: 18px; align-items: center; }
+.checkout-topbar__nav a,
+.checkout-link-btn {
+  color: var(--slate); text-decoration: none; font: inherit; font-size: 0.9rem;
+  background: none; border: none; cursor: pointer; padding: 0;
+  transition: color var(--transition-fast);
+}
+.checkout-topbar__nav a:hover, .checkout-link-btn:hover { color: var(--white-foam); }
+
+/* ─── Layout ─────────────────────────────────────────────── */
+.checkout-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px var(--container-padding) 80px;
+}
+.checkout-state { color: var(--slate); text-align: center; padding: 48px 0; }
+.checkout-state--error { color: #FCA5A5; }
+
+.checkout-head { text-align: center; margin-bottom: 36px; }
+.checkout-head__eyebrow {
+  color: var(--current); font-family: var(--font-mono); font-size: 0.8rem;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.checkout-head h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 600; margin: 8px 0; }
+.checkout-head p { color: var(--slate); max-width: 620px; margin: 0 auto; line-height: 1.6; }
+
+/* ─── Card da licença ─────────────────────────────────────── */
+.license-card {
+  max-width: 560px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+}
+.license-card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.license-card__name { font-size: 1.3rem; font-weight: 600; }
+.promo-badge {
+  background: linear-gradient(90deg, var(--flow-blue), var(--current));
+  color: #fff; font-weight: 600; font-size: 0.8rem;
+  padding: 4px 10px; border-radius: 999px;
+}
+.license-card__price { margin: 18px 0; }
+.license-card__price-old { color: var(--dim); text-decoration: line-through; font-size: 1rem; }
+.license-card__price-now { font-size: 2.2rem; font-weight: 700; color: var(--white-foam); }
+.license-card__price-now small { font-size: 0.95rem; color: var(--slate); font-weight: 400; }
+.license-card__price-note { color: var(--slate); font-size: 0.85rem; margin-top: 4px; }
+
+.license-card__benefits { list-style: none; display: grid; gap: 10px; margin: 20px 0; }
+.license-card__benefits li {
+  display: flex; gap: 10px; align-items: flex-start; color: var(--slate); line-height: 1.5;
+}
+.license-card__benefits li::before { content: "✓"; color: #34D399; font-weight: 700; }
+
+/* ─── Seletor de modo de pagamento ───────────────────────── */
+.pay-modes { display: grid; gap: 12px; margin: 20px 0; }
+.pay-mode {
+  display: flex; align-items: center; gap: 12px;
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 14px 16px; cursor: pointer; transition: border-color var(--transition-fast);
+}
+.pay-mode:hover { border-color: var(--current); }
+.pay-mode.is-selected { border-color: var(--current); background: rgba(30, 136, 229, 0.08); }
+.pay-mode input { accent-color: var(--flow-blue); width: 18px; height: 18px; }
+.pay-mode__body { flex: 1; }
+.pay-mode__title { font-weight: 600; }
+.pay-mode__desc { color: var(--slate); font-size: 0.85rem; }
+
+/* ─── Planos mensais ─────────────────────────────────────── */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 880px;
+  margin: 0 auto;
+}
+.plan-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.plan-card__name { font-size: 1.25rem; font-weight: 600; }
+.plan-card__resumo { color: var(--slate); font-size: 0.9rem; min-height: 2.4em; }
+.plan-card__price { font-size: 1.9rem; font-weight: 700; }
+.plan-card__price small { font-size: 0.9rem; color: var(--slate); font-weight: 400; }
+.plan-card__range { color: var(--dim); font-size: 0.82rem; font-family: var(--font-mono); }
+.plan-card__trial { color: #34D399; font-size: 0.85rem; }
+.plan-card .btn { margin-top: auto; }
+
+/* ─── Botões ─────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid var(--border); background: var(--card-bg); color: var(--white-foam);
+  font: inherit; font-weight: 500; padding: 12px 18px; border-radius: var(--radius-md);
+  cursor: pointer; transition: all var(--transition-fast); width: 100%;
+}
+.btn:hover { border-color: var(--current); }
+.btn:disabled { opacity: 0.55; cursor: default; }
+.btn--primary { background: var(--flow-blue); border-color: var(--flow-blue); color: #fff; }
+.btn--primary:hover { background: var(--current); border-color: var(--current); }
+
+.checkout-feedback { color: #FCA5A5; font-size: 0.88rem; margin-top: 12px; text-align: center; min-height: 1.2em; }
+.checkout-secure { color: var(--dim); font-size: 0.8rem; text-align: center; margin-top: 16px; }
+
+/* ─── Sucesso ────────────────────────────────────────────── */
+.success-box { max-width: 520px; margin: 40px auto 0; text-align: center; }
+.success-box__icon {
+  width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 20px;
+  background: rgba(52, 211, 153, 0.15); color: #34D399;
+  display: flex; align-items: center; justify-content: center; font-size: 32px;
+}
+.success-box h1 { font-size: 1.7rem; font-weight: 600; margin-bottom: 12px; }
+.success-box p { color: var(--slate); line-height: 1.6; margin-bottom: 10px; }
+.success-box .btn { max-width: 260px; margin: 20px auto 0; }
+
+@media (max-width: 560px) {
+  .license-card { padding: 22px; }
+}

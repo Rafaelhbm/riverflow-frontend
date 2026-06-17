@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/checkout.css">
+
+  <title>Escolha seu plano · RiverFlow</title>
+</head>
+<body class="checkout-body">
+
+  <header class="checkout-topbar">
+    <div class="checkout-topbar__inner">
+      <a href="../index.html" class="checkout-brand">River<span>Flow</span></a>
+      <nav class="checkout-topbar__nav">
+        <button class="checkout-link-btn" data-logout type="button" hidden>Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="checkout-main">
+    <p class="checkout-state" data-state role="status" aria-live="polite">Carregando planos...</p>
+
+    <div data-plans-wrap hidden>
+      <div class="checkout-head">
+        <span class="checkout-head__eyebrow">// Plano mensal</span>
+        <h1>Escolha como quer fluir</h1>
+        <p>Licença garantida! Agora escolha seu plano mensal. Você começa com
+           <strong>3 meses no valor de teste</strong> — o piso do plano — para conhecer o sistema
+           sem compromisso. Depois, o valor se ajusta ao seu uso, dentro da faixa.</p>
+      </div>
+
+      <div class="plans-grid" data-plans></div>
+      <p class="checkout-feedback" data-feedback role="status" aria-live="polite"></p>
+      <p class="checkout-secure">🔒 Assinatura processada com segurança pela Stripe. Cancele quando quiser.</p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/session-guard.js"></script>
+  <script defer src="../js/planos.js"></script>
+
+</body>
+</html>
