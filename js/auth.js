@@ -17,10 +17,9 @@
 (function () {
   // ─── Configuração pública ────────────────────────────────────────────────
   const SUPABASE_URL = 'https://rgyoahefdsukuiltqwvu.supabase.co';
-  // TODO(S0): cole a anon key pública do projeto
-  // (Supabase → Settings → API → Project API keys → "anon" "public").
+  // anon key pública do projeto (Supabase → Settings → API → "anon" "public").
   // É pública por design — pode ficar versionada no frontend.
-  const SUPABASE_ANON_KEY = 'COLE_AQUI_A_ANON_KEY_PUBLICA';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJneW9haGVmZHN1a3VpbHRxd3Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NDcyNDcsImV4cCI6MjA5NjEyMzI0N30.UDco23QfvF4Gsyf2Xprm11YIol52uxshB5EKW_cWx1E';
 
   if (!window.supabase || typeof window.supabase.createClient !== 'function') {
     console.error('[AUTH] supabase-js não carregado. Inclua o <script> do CDN antes de auth.js.');

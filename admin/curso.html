@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/admin.css">
+
+  <title>Editor de curso · RiverFlow</title>
+</head>
+<body class="admin">
+
+  <header class="admin-topbar">
+    <div class="admin-topbar__inner">
+      <a href="../index.html" class="admin-brand">River<span>Flow</span> <em>admin</em></a>
+      <nav class="admin-topbar__nav">
+        <a href="index.html">&larr; Cursos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="admin-container">
+
+      <p class="admin-state" data-state role="status" aria-live="polite">Carregando...</p>
+
+      <div class="admin-editor" data-editor hidden>
+
+        <!-- Dados gerais do curso -->
+        <section class="admin-card">
+          <div class="admin-head admin-head--inline">
+            <h1 data-course-title>Curso</h1>
+            <div class="admin-head__actions">
+              <span class="badge" data-course-badge></span>
+              <button class="btn btn--sm" data-course-toggle>Publicar</button>
+            </div>
+          </div>
+          <form class="admin-form" data-course-form>
+            <div class="admin-grid-2">
+              <label class="field"><span>Título</span><input name="titulo" type="text" maxlength="160" required></label>
+              <label class="field"><span>Slug (URL)</span><input name="slug" type="text" maxlength="120" pattern="[a-z0-9]+(-[a-z0-9]+)*" required></label>
+            </div>
+            <div class="admin-grid-2">
+              <label class="field"><span>SaaS relacionado</span><input name="saas_id" type="text" maxlength="60"></label>
+              <label class="field"><span>Ordem no catálogo</span><input name="ordem" type="number" min="0" step="1"></label>
+            </div>
+            <label class="field"><span>Capa (URL da imagem)</span><input name="capa_url" type="text" maxlength="500" placeholder="/assets/cursos/flowcivil.png"></label>
+            <label class="field"><span>Descrição</span><textarea name="descricao" rows="3" maxlength="2000"></textarea></label>
+            <label class="field"><span>O que aprende (um item por linha)</span><textarea name="o_que_aprende" rows="4" placeholder="Cadastrar obras&#10;Gerar relatórios&#10;Controle financeiro"></textarea></label>
+            <p class="admin-feedback" data-course-feedback role="status" aria-live="polite"></p>
+            <div class="admin-form__actions">
+              <button type="submit" class="btn btn--primary">Salvar dados do curso</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Conteúdo: árvore de módulos/aulas + painel da aula -->
+        <div class="admin-cols">
+          <section class="admin-card admin-tree">
+            <div class="admin-head admin-head--inline">
+              <h2>Conteúdo</h2>
+              <button class="btn btn--ghost btn--sm" data-add-module>+ Módulo</button>
+            </div>
+            <div data-modules></div>
+          </section>
+
+          <section class="admin-card admin-detail" data-detail hidden>
+            <!-- preenchido pelo JS quando uma aula é selecionada -->
+          </section>
+          <section class="admin-card admin-detail admin-detail--empty" data-detail-empty>
+            <p>Selecione uma aula à esquerda para editar vídeo, materiais e comentários.</p>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/session-guard.js"></script>
+  <script src="../js/admin-api.js"></script>
+  <script defer src="../js/admin-curso.js"></script>
+
+</body>
+</html>
